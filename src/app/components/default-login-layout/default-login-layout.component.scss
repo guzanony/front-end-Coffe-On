@@ -1,0 +1,80 @@
+@import "../../../styles/variables.scss";
+
+main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main-section {
+    gap: 8px;
+    max-width: 50%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $gray-bg;
+    padding: 20px;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  .form-section {
+    flex-grow: 0.5;
+    padding: 0 35px;
+
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 45px;
+    }
+
+    .btn-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 30px;
+
+      button {
+        width: 100%;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        border: none;
+        background: $primary-color;
+        color: white;
+        padding: 12px 24px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+
+        &:disabled {
+          opacity: 0.8;
+        }
+
+        &.btn-secondary {
+          background-color: transparent;
+          border: 1px solid $primary-color;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
