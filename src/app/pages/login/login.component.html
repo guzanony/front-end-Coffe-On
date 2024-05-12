@@ -1,1 +1,26 @@
-<app-default-login-layout></app-default-login-layout>
+<app-default-login-layout
+  title="Faça o login para acessar sua conta"
+  primaryBtnText="Entrar"
+  secondaryBtnText="Criar conta"
+  (submit)="submit()"
+  (navigate)="navigate()"
+  [disabledPrimaryBtn]="!loginForm.valid"
+>
+  <form [formGroup]="loginForm">
+    <app-primary-input
+      formControlName="email"
+      inputName="email"
+      type="email"
+      label="Email"
+      placeHolder="nome@exemplo.com"
+    >
+    </app-primary-input>
+    <app-primary-input
+      formControlName="password"
+      inputName="password"
+      type="password"
+      label="Sua senha"
+    >
+    </app-primary-input>
+  </form>
+</app-default-login-layout>

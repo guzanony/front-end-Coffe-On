@@ -1,0 +1,64 @@
+form {
+  width: 100%;
+}
+.endereco-entrega-section {
+  margin-top: 20px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.endereco-entrega-section input[type="text"],
+.endereco-entrega-section input[type="number"],
+.endereco-entrega-section input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.endereco-entrega-section button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #5c67f2;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.endereco-entrega-section button:hover {
+  background-color: #4a50e0;
+}
+
+.adicionar-endereco-btn {
+  background-color: #4caf50;
+}
+
+.adicionar-endereco-btn:hover {
+  background-color: #45a049;
+}
+
+.endereco-entrega-section input[type="radio"] {
+  margin-right: 5px;
+}
+
+.radio-label {
+  margin-left: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.endereco-item {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.endereco-item:last-child {
+  border-bottom: none;
+}
