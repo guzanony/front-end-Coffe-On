@@ -1,14 +1,13 @@
 <main>
   <section class="form-section">
-    <h2>Login</h2>
+    <h2>{{title}}</h2>
     <ng-content></ng-content>
     <div class="btn-wrapper">
-      <button aria-label="Submit">Entrar</button>
+      <button aria-label="Submit" class="btn-primary" [disabled]="disabledPrimaryBtn" (click)="submit()">{{primaryBtnText}}</button>
       <div class="divider">
-        <div></div>
-        <div></div>
+        <div>ou</div>
       </div>
-      <button class="btn-secondary">Criar conta</button>
+      <button class="btn-secondary" (click)="navigate()">{{secondaryBtnText}}</button>
     </div>
   </section>
   <section class="main-section">
