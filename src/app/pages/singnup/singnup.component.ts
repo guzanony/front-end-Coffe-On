@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { DefaultLoginLayoutComponent } from '../../components/default-login-layout/default-login-layout.component';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
 import { Router } from '@angular/router';
-import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../../services/login/login.service';
+import { SingUpService } from '../../services/singUp/singUp.service';
 
 @Component({
   selector: 'app-login',
@@ -16,58 +17,46 @@ import { CommonModule } from '@angular/common';
   styleUrl: './singnup.component.scss'
 })
 export class SignUpComponent {
-public singnupForm!: FormGroup;
+  public signUpForm!: FormGroup;
 
-  constructor(private readonly _router: Router, private readonly _loginService: LoginService, private readonly _toastService: ToastrService, private readonly _fb: FormBuilder) {
-    this.singnupForm = this._fb.group({
-      nomeCompleto: ['', [Validators.required, Validators.minLength(3)]],
-      dataNascimento: ['', [Validators.required]],
-      genero: ['', [Validators.required]],
-      enderecosEntrega: this._fb.array([this.createEnderecoEntrega()]),
-      cepFaturamento: ['', [Validators.required]],
-      logradouroFaturamento: ['', [Validators.required]],
-      numeroFaturamento: ['', [Validators.required]],
-      complementoFaturamento: ['', [Validators.required]],
-      bairroFaturamento: ['', [Validators.required]],
-      cidadeFaturamento: ['', [Validators.required]],
-      ufFaturamento: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      passwordConfirm: ['', [Validators.required, Validators.minLength(6)]],
-      email: ['', [Validators.required, Validators.email]],
-      cpf: ['', [Validators.required]]
-    })
-  }
-
-  public createEnderecoEntrega(): FormGroup {
-    return this._fb.group({
-      cep: ['', [Validators.required]],
-      logradouro: ['', [Validators.required]],
-      numero: ['', [Validators.required]],
-      complemento: [''],
-      bairro: ['', [Validators.required]],
-      cidade: ['', [Validators.required]],
-      uf: ['', [Validators.required]],
-      preferencial: [false]
+  constructor(
+    private readonly _router: Router,
+    private readonly _signUpService: SingUpService,
+    private readonly _toastService: ToastrService
+  ) {
+    this.signUpForm = new FormGroup({
+      nomeCompleto: new FormControl('', [Validators.required]),
+      dataNascimento: new FormControl('', [Validators.required]),
+      genero: new FormControl('', [Validators.required]),
+      cepFaturamento: new FormControl('', [Validators.required]),
+      logradouroFaturamento: new FormControl('', [Validators.required]),
+      numeroFaturamento: new FormControl('', [Validators.required]),
+      complementoFaturamento: new FormControl(''),
+      bairroFaturamento: new FormControl('', [Validators.required]),
+      cidadeFaturamento: new FormControl('', [Validators.required]),
+      ufFaturamento: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      cpf: new FormControl('', [Validators.required]),
+      cep: new FormControl('', [Validators.required]),
+      logradouro: new FormControl('', [Validators.required]),
+      numero: new FormControl('', [Validators.required]),
+      complemento: new FormControl(''),
+      bairro: new FormControl('', [Validators.required]),
+      cidade: new FormControl('', [Validators.required]),
+      uf: new FormControl('', [Validators.required])
     });
   }
 
-  public get enderecosEntrega(): FormArray {
-    return this.singnupForm.get('enderecosEntrega') as FormArray;
-  }
-
-  public adicionarEnderecoEntrega(): void {
-    this.enderecosEntrega.push(this.createEnderecoEntrega());
-  }
-
-  public removerEnderecoEntrega(index: number): void {
-    this.enderecosEntrega.removeAt(index);
-  }
-
   public submit(): void {
-    this._loginService.login(this.singnupForm.value.email, this.singnupForm.value.password).subscribe({
-      next: () => this._toastService.success('Login feito com sucesso'),
-      error: () => this._toastService.error('Erro inesperado! Tente novamente mais tarde')
-    })
+    if (this.signUpForm.valid) {
+      this._signUpService.singUp(this.signUpForm.value).subscribe({
+        next: () => this._toastService.success('Cadastro feito com sucesso'),
+        error: () => this._toastService.error('Erro inesperado! Tente novamente mais tarde')
+      });
+    } else {
+      this._toastService.error('Por favor, preencha todos os campos obrigatórios corretamente.');
+    }
   }
 
   public navigate(): void {

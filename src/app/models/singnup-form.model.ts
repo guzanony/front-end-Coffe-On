@@ -1,25 +1,22 @@
-import { FormControl } from "@angular/forms";
-
 export class SignUpForm {
-  nomeCompleto!: FormControl;
-  dataNascimento!: FormControl;
-  genero!: FormControl;
-  cepFaturamento!: FormControl;
-  logradouroFaturamento!: FormControl;
-  numeroFaturamento!: FormControl;
-  complementoFaturamento!: FormControl;
-  bairroFaturamento!: FormControl;
-  cidadeFaturamento!: FormControl;
-  ufFaturamento!: FormControl;
-  password!: FormControl;
-  passwordConfirm!: FormControl;
-  email!: FormControl;
-  cpf!: FormControl;
-  cep!: FormControl;
-  logradouro!: FormControl;
-  numero!: FormControl;
-  complemento!: FormControl;
-  bairro!: FormControl;
-  cidade!: FormControl;
-  uf!: FormControl;
+  nomeCompleto!: string;
+  dataNascimento!: string;
+  genero!: string;
+  cepFaturamento!: string;
+  logradouroFaturamento!: string;
+  numeroFaturamento!: string;
+  complementoFaturamento!: string;
+  bairroFaturamento!: string;
+  cidadeFaturamento!: string;
+  ufFaturamento!: string;
+  password!: string;
+  email!: string;
+  cpf!: string;
+  cep!: string;
+  logradouro!: string;
+  numero!: string;
+  complemento!: string;
+  bairro!: string;
+  cidade!: string;
+  uf!: string;
 }
