@@ -4,7 +4,6 @@
   secondaryBtnText="Criar conta"
   (submit)="submit()"
   (navigate)="navigate()"
-  [disabledPrimaryBtn]="!loginForm.valid"
 >
   <form [formGroup]="loginForm">
     <app-primary-input
