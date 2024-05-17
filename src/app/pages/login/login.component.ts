@@ -16,7 +16,7 @@ import { LoginService } from '../../services/login/login.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-public loginForm!: FormGroup<LoginForm>;
+  public loginForm!: FormGroup<LoginForm>;
 
   constructor(private readonly _router: Router, private readonly _loginService: LoginService, private readonly _toastService: ToastrService) {
     this.loginForm = new FormGroup<LoginForm>({
@@ -26,10 +26,15 @@ public loginForm!: FormGroup<LoginForm>;
   }
 
   public submit(): void {
-    this._loginService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-      next: () => this._toastService.success('Login feito com sucesso'),
-      error: () => this._toastService.error('Erro inesperado! Tente novamente mais tarde')
-    })
+    if (this.loginForm.valid) {
+      this._loginService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+        next: () => {
+          this._toastService.success('Login feito com sucesso');
+          this._router.navigate(['/user']);
+        },
+        error: () => this._toastService.error('Erro inesperado! Tente novamente mais tarde')
+      });
+    }
   }
 
   public navigate(): void {
