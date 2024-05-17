@@ -1,0 +1,77 @@
+<div class="main-container">
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid justify-content-between">
+      <a class="navbar-brand" href="#">Coffee-on <i class="bi bi-cup-hot-fill text-warning"></i></a>
+      <div class="d-flex w-25 justify-content-between">
+        <a routerLink="/login" class="icon-link icon-link-hover d-flex align-items-center">
+          Login
+          <i class="bi bi-arrow-right-circle-fill"></i>
+        </a>
+        <a routerLink="/signup" class="icon-link icon-link-hover d-flex align-items-center">
+          Cadastre-se
+          <i class="bi bi-arrow-right-circle-fill"></i>
+        </a>
+        <a href="#"><i class="bi bi-cart4 text-secondary h4"></i></a>
+      </div>
+    </div>
+  </nav>
+  <main class="container mt-5">
+    <section class="row">
+      <div id="carouselExampleIndicators" class="carousel slide col-5">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <!-- <div class="carousel-item active">
+            <img src="https://s3-sa-east-1.amazonaws.com/bluesoft-erp/pb/ecommerce/produtos/fotos/424a3a39-95d8-450d-a81a-9ecebb670526/foto_large.jpg" class="d-block" alt="produto">
+          </div> -->
+          <!-- <div class="carousel-item">
+            <img src="https://s3-sa-east-1.amazonaws.com/bluesoft-erp/pb/ecommerce/produtos/fotos/d817333d-ccac-4a3f-8155-05aaf7d77ee3/foto_large.jpg" alt="produto" class="d-block">
+          </div> -->
+          <!-- <div class="carousel-item">
+            <img src="https://images-americanas.b2w.io/produtos/7166996160/imagens/kit-cantinho-do-cafe-mini-coador-individual-filtro-com-xicara-e-brinde-pacote-pele-250g/7166996160_1_large.jpg" alt="produto" class="d-block">
+          </div> -->
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <div class="col-7">
+        <header>
+          <h1 id="product-title" class="fw-bold text-danger mb-3">Café Pelé Extraforte Vácuo 500g</h1>
+        </header>
+        <main>
+          <h5 class="text-secondary fw-semibold mb-2">Descrição:</h5>
+          <p>É um delicioso café encorpado com ponto de torra mais acentuado, resultando em uma bebida encorpada, com sabor intenso e aroma marcante. A torra escura é para aqueles que procuram um café forte na medida exata.</p>
+          <h5 class="text-secondary fw-semibold mb-2">Características:</h5>
+          <ul>
+            <li>Forte</li>
+            <li>Encorpado</li>
+          </ul>
+          <h5 class="text-secondary fw-semibold mb-2">Intensidade: <span class="text-dark">4</span></h5>
+          <div class="avaliacao-container d-flex justify-content-start align-items-center">
+            <h5 class="text-secondary fw-semibold">Avaliação:</h5>
+            <ul class="avaliacao">
+              <li class="star-icon ativo" data-avaliacao="1"></li>
+              <li class="star-icon" data-avaliacao="2"></li>
+              <li class="star-icon" data-avaliacao="3"></li>
+              <li class="star-icon" data-avaliacao="4"></li>
+              <li class="star-icon" data-avaliacao="5"></li>
+            </ul>
+          </div>
+          <div class="finalizar-compra d-flex justify-content-between align-items-center">
+            <p class="fs-1 text-danger fw-bold">R$15.00</p>
+            <button (click)="comprar()" class="btn btn-success">Comprar</button>
+          </div>
+        </main>
+      </div>
+    </section>
+  </main>
+</div>
