@@ -37,7 +37,7 @@ export class SingUpService {
       tap((value) => {
         sessionStorage.setItem('auth-token', value.token);
         sessionStorage.setItem('username', value.name);
-        sessionStorage.setItem('userId', value.userId);
+        sessionStorage.setItem('nomeCompleto', value.nomeCompleto);
       })
     );
   }
