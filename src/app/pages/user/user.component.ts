@@ -8,7 +8,7 @@ import { CartService } from '../../services/carrinho/cart.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './user.component.html',
-  styleUrl: './user.component.scss'
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
 
@@ -19,7 +19,7 @@ export class UserComponent implements OnInit {
   private readonly _cartService = inject(CartService);
 
   ngOnInit(): void {
-    this.name = sessionStorage.getItem('username');
+    this.name = sessionStorage.getItem('nomeCompleto');
     const userId = sessionStorage.getItem('userId') || '';
     this._cartService.getCartItemCount().subscribe(count => {
       this.cartItemCount = count;
@@ -41,6 +41,7 @@ export class UserComponent implements OnInit {
     sessionStorage.removeItem('auth-token');
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('nomeCompleto');
     this._router.navigate(['']);
   }
 
@@ -56,9 +57,9 @@ export class UserComponent implements OnInit {
     this._router.navigate(['/product-details']);
   }
 
-  public addToCart(productId: string): void {
-    const userId = sessionStorage.getItem('userId');
-    if (userId) {
+  public addToCart(): void {
+    const nomeCompleto = sessionStorage.getItem('nomeCompleto');
+    if (nomeCompleto) {
       this.cartItemCount++;
     }
   }
