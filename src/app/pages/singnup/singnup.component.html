@@ -58,9 +58,10 @@
     <app-primary-input
       formControlName="cepFaturamento"
       inputName="cepFaturamento"
-      type="text"
+      type="cepFaturamento"
       label="CEP de Faturamento"
       placeHolder="XXXXX-XXX"
+      (blur)="checkCep($event, 'faturamento')"
     ></app-primary-input>
     <app-primary-input
       formControlName="logradouroFaturamento"
@@ -68,6 +69,7 @@
       type="text"
       label="Logradouro de Faturamento"
       placeHolder="Rua, Avenida, etc."
+      readonly
     ></app-primary-input>
     <app-primary-input
       formControlName="numeroFaturamento"
@@ -89,6 +91,7 @@
       type="text"
       label="Bairro de Faturamento"
       placeHolder="Bairro"
+      readonly
     ></app-primary-input>
     <app-primary-input
       formControlName="cidadeFaturamento"
@@ -96,6 +99,7 @@
       type="text"
       label="Cidade de Faturamento"
       placeHolder="Cidade"
+      readonly
     ></app-primary-input>
     <app-primary-input
       formControlName="ufFaturamento"
@@ -103,18 +107,23 @@
       type="text"
       label="UF de Faturamento"
       placeHolder="UF"
+      readonly
     ></app-primary-input>
 
     <h3>Endereços de Entrega</h3>
     <div formArrayName="enderecos">
-      <div *ngFor="let endereco of enderecos.controls; let i = index" [formGroupName]="i">
-        <h4>Endereço {{i + 1}}</h4>
+      <div
+        *ngFor="let endereco of enderecos.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <h4>Endereço {{ i + 1 }}</h4>
         <app-primary-input
           formControlName="cep"
           inputName="cep"
           type="text"
           label="CEP"
           placeHolder="XXXXX-XXX"
+          (blur)="checkCep($event, i)"
         ></app-primary-input>
         <app-primary-input
           formControlName="logradouro"
@@ -122,6 +131,7 @@
           type="text"
           label="Logradouro"
           placeHolder="Rua, Avenida, etc."
+          readonly
         ></app-primary-input>
         <app-primary-input
           formControlName="numero"
@@ -143,6 +153,7 @@
           type="text"
           label="Bairro"
           placeHolder="Bairro"
+          readonly
         ></app-primary-input>
         <app-primary-input
           formControlName="cidade"
@@ -150,6 +161,7 @@
           type="text"
           label="Cidade"
           placeHolder="Cidade"
+          readonly
         ></app-primary-input>
         <app-primary-input
           formControlName="uf"
@@ -157,6 +169,7 @@
           type="text"
           label="UF"
           placeHolder="UF"
+          readonly
         ></app-primary-input>
         <div>
           <label>
@@ -170,7 +183,9 @@
             Endereço Padrão
           </label>
         </div>
-        <button type="button" (click)="removeEndereco(i)">Remover Endereço</button>
+        <button type="button" (click)="removeEndereco(i)">
+          Remover Endereço
+        </button>
       </div>
     </div>
     <button type="button" (click)="addEndereco()">Adicionar Endereço</button>
