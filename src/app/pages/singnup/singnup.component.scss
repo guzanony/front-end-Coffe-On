@@ -62,3 +62,16 @@ form {
 .endereco-item:last-child {
   border-bottom: none;
 }
+
+button[type="button"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button[type="button"]:hover {
+  background-color: #0056b3;
+}
