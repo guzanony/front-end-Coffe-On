@@ -1,19 +1,17 @@
-import { Component } from '@angular/core';
-import { DefaultLoginLayoutComponent } from '../../components/default-login-layout/default-login-layout.component';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CommonModule } from '@angular/common';
-import { LoginService } from '../../services/login/login.service';
-import { SingUpService } from '../../services/singUp/singUp.service';
+import { HttpClient } from '@angular/common/http';
 import { EnderecoEntregaFormModel, SignUpFormModel } from '../../models/singnup-form.model';
+import { DefaultLoginLayoutComponent } from '../../components/default-login-layout/default-login-layout.component';
+import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [DefaultLoginLayoutComponent, ReactiveFormsModule, PrimaryInputComponent, CommonModule],
-  providers: [LoginService],
   templateUrl: './singnup.component.html',
   styleUrl: './singnup.component.scss'
 })
@@ -21,11 +19,11 @@ export class SignUpComponent {
   public signUpForm!: FormGroup<SignUpFormModel>;
   public enderecos: FormArray<FormGroup<EnderecoEntregaFormModel>>;
 
-  constructor(
-    private readonly _router: Router,
-    private readonly _signUpService: SingUpService,
-    private readonly _toastService: ToastrService
-  ) {
+  private readonly _router = inject(Router);
+  private readonly _toastService = inject(ToastrService);
+  private readonly _http = inject(HttpClient);
+
+  constructor() {
     this.enderecos = new FormArray<FormGroup<EnderecoEntregaFormModel>>([]);
     this.signUpForm = new FormGroup<SignUpFormModel>({
       nomeCompleto: new FormControl<string | null>('', [Validators.required]),
@@ -70,13 +68,53 @@ export class SignUpComponent {
 
   public submit(): void {
     if (this.signUpForm.valid) {
-      this._signUpService.signUp(this.signUpForm.value).subscribe({
-        next: () => this._toastService.success('Cadastro feito com sucesso'),
-        error: () => this._toastService.error('Erro inesperado! Tente novamente mais tarde')
-      });
+      this._toastService.success('Cadastro feito com sucesso');
     } else {
       this._toastService.error('Por favor, preencha todos os campos obrigatórios corretamente.');
     }
+  }
+  public checkCep(event: any, type: 'faturamento' | number): void {
+    const cep = event.target.value.trim();
+    console.log('CEP:', cep);
+    if (cep.length === 8) {
+      this.validateCep(cep, type);
+    } else {
+      this._toastService.error('CEP deve ter 8 dígitos.');
+    }
+  }
+
+  private validateCep(cep: string, type: 'faturamento' | number): void {
+    console.log('Validando CEP:', cep);
+    this._http.get(`https://viacep.com.br/ws/${cep}/json/`).subscribe({
+      next: (data: any) => {
+        console.log('Dados do CEP:', data);
+        if (data.erro) {
+          this._toastService.error('CEP não encontrado.');
+        } else {
+          const enderecoData = {
+            logradouro: data.logradouro,
+            bairro: data.bairro,
+            cidade: data.localidade,
+            uf: data.uf
+          };
+
+          if (type === 'faturamento') {
+            this.signUpForm.patchValue({
+              logradouroFaturamento: data.logradouro,
+              bairroFaturamento: data.bairro,
+              cidadeFaturamento: data.localidade,
+              ufFaturamento: data.uf
+            });
+          } else {
+            const enderecoForm = this.enderecos.at(type) as FormGroup;
+            enderecoForm.patchValue(enderecoData);
+          }
+        }
+      },
+      error: () => {
+        this._toastService.error('Erro ao buscar o CEP. Tente novamente.');
+      }
+    });
   }
 
   public navigate(): void {

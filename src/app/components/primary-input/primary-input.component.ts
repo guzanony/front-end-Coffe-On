@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
 type InputTypes = 'text' | 'email' | 'password' | 'nomeCompleto' | 'dataNascimento' | 'genero' | 'cepFaturamento' | 'logradouroFaturamento' | 'numeroFaturamento' | 'complementoFaturamento' | 'bairroFaturamento' | 'cidadeFaturamento' | 'ufFaturamento' | 'cpf' | 'cep' | 'logradouro' | 'numero' | 'complemento' | 'bairro' | 'cidade' | 'uf'
@@ -21,27 +21,32 @@ export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() label: string = '';
   @Input() inputName: string = '';
 
+  @Output() blur = new EventEmitter<Event>();
+
   value: string = '';
   onChange: any = () => { }
   onTouched: any = () => { }
 
   onInput(event: Event) {
-    const value = (event.target as HTMLInputElement).value
-    this.onChange(value)
+    const value = (event.target as HTMLInputElement).value;
+    this.onChange(value);
+  }
+
+  onBlur(event: Event) {
+    this.blur.emit(event);
   }
 
   writeValue(value: any): void {
-    this.value = value
+    this.value = value;
   }
 
   registerOnChange(fn: any): void {
-    this.onChange = fn
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
-    this.onTouched = fn
+    this.onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean): void { }
-
 }
