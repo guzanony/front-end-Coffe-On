@@ -4,6 +4,7 @@ import { SignUpComponent } from './pages/singnup/singnup.component';
 import { UserComponent } from './pages/user/user.component';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
 
 export const routes: Routes = [
   {
@@ -31,5 +32,9 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: 'user'
+  },
+  {
+    path: 'edit-user',
+    component: EditUserComponent
   }
 ];

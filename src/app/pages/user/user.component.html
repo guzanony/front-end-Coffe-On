@@ -37,6 +37,7 @@
           </div>
           <div *ngIf="isAuthenticated()" class="d-flex w-25 justify-content-between">
             <span>Bem-vindo, {{ name }}</span>
+            <a (click)="editProfile()" class="icon-link icon-link-hover d-flex align-items-center">Editar Perfil</a>
             <a (click)="logout()" class="icon-link icon-link-hover d-flex align-items-center">
               Logout
               <i class="bi bi-box-arrow-right"></i>

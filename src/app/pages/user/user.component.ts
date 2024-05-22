@@ -63,4 +63,8 @@ export class UserComponent implements OnInit {
       this.cartItemCount++;
     }
   }
+
+  public editProfile(): void {
+    this._router.navigate(['/edit-user']);
+  }
 }
