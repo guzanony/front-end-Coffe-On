@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
@@ -10,17 +10,22 @@ import { Router } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit {
 
-
   private readonly _router = inject(Router);
+  private readonly _route = inject(ActivatedRoute);
+
+  product: any = null;
 
   ngOnInit(): void {
+    const productId = this._route.snapshot.paramMap.get('id');
+    this.loadProduct(productId);
+  }
+
+  loadProduct(productId: string | null) {
+    const products = JSON.parse(localStorage.getItem('products') || '[]');
+    this.product = products.find((product: any) => product.id === productId);
   }
 
   public comprar(): void {
-    if (sessionStorage.getItem('auth-token')) {
-      // Lógica para comprar o produto
-    } else {
-      this._router.navigate(['/login']);
-    }
+    this._router.navigate(['/cart']);
   }
 }

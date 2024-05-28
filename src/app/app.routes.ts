@@ -5,6 +5,8 @@ import { UserComponent } from './pages/user/user.component';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { PagamentosComponent } from './pages/pagamentos/pagamentos.component';
 
 export const routes: Routes = [
   {
@@ -12,8 +14,20 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'cart',
+    component: CartComponent
+  },
+  {
     path: 'singnup',
     component: SignUpComponent
+  },
+  {
+    path: 'edit-user',
+    component: EditUserComponent
+  },
+  {
+    path: 'pagamentos',
+    component: PagamentosComponent
   },
   {
     path: 'user',
@@ -33,8 +47,6 @@ export const routes: Routes = [
     path: '**',
     redirectTo: 'user'
   },
-  {
-    path: 'edit-user',
-    component: EditUserComponent
-  }
+
+
 ];

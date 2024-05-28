@@ -35,6 +35,8 @@ export class SingUpService {
   }>) {
     return this._httpClient.post<LoginResponse>(this.urlApi + '/registerCliente', signUpData).pipe(
       tap((value) => {
+        console.log('URL da API:', this.urlApi);
+        console.log('Token JWT:', localStorage.getItem('auth-token'));
         sessionStorage.setItem('auth-token', value.token);
         sessionStorage.setItem('username', value.name);
         sessionStorage.setItem('nomeCompleto', value.nomeCompleto);

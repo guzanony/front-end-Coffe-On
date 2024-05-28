@@ -67,4 +67,8 @@ export class UserComponent implements OnInit {
   public editProfile(): void {
     this._router.navigate(['/edit-user']);
   }
+
+  public carrinho(): void {
+    this._router.navigate(['/cart']);
+  }
 }
