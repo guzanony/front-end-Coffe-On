@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/carrinho/cart.service';
+import { UserService } from '../../services/user/user-service.service';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-user',
@@ -14,9 +16,11 @@ export class UserComponent implements OnInit {
 
   public name: string | null = '';
   public cartItemCount: number = 0;
+  public products: Product[] = [];
 
   private readonly _router = inject(Router);
   private readonly _cartService = inject(CartService);
+  private readonly _userService = inject(UserService);
 
   ngOnInit(): void {
     this.name = sessionStorage.getItem('nomeCompleto');
@@ -27,6 +31,9 @@ export class UserComponent implements OnInit {
     if (userId) {
       this._cartService.loadCart(userId);
     }
+    this._userService.getProducts().subscribe(resp => {
+      this.products = resp;
+    })
   }
 
   public navigate(): void {

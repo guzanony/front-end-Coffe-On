@@ -6,15 +6,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private readonly API_URL = 'http://localhost:8080/auth/cliente';
+  private readonly API_URL_CLIENTE = 'http://localhost:8080/auth/cliente';
+  private readonly API_URL_PRODUCT = 'http://localhost:8080/products';
 
   constructor(private http: HttpClient) {}
 
-  getUser(): Observable<any> {
-    return this.http.get(`${this.API_URL}/me`);
+  public getUser(): Observable<any> {
+    return this.http.get(`${this.API_URL_CLIENTE}/me`);
   }
 
-  updateUser(data: any): Observable<any> {
-    return this.http.put(`${this.API_URL}/me`, data);
+  public updateUser(data: any): Observable<any> {
+    return this.http.put(`${this.API_URL_CLIENTE}/me`, data);
+  }
+
+  public getProducts(): Observable<any> {
+    return this.http.get(`${this.API_URL_PRODUCT}`)
   }
 }
