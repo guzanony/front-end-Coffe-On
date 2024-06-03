@@ -1,5 +1,5 @@
-export interface Product {
-  id: string;
-  nome: string;
-  preco: number;
+export class Product {
+  id!: string;
+  nome!: string;
+  preco!: number;
 }
