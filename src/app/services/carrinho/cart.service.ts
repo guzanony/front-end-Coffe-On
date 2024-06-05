@@ -17,9 +17,9 @@ export class CartService {
 
   public addToCart(userId: string, productId: string, quantity: number = 1): void {
     const cartItem = { userId, productId, quantity };
-    console.log('Sending request to add to cart:', cartItem); // Log de depuração
+    console.log('Sending request to add to cart:', cartItem);
     this._http.post(`${this.API_URL}/add`, cartItem).subscribe((response: any) => {
-      console.log('Cart response:', response); // Adicione log para depuração
+      console.log('Cart response:', response);
       if (response && response.items) {
         this.cartItemCount.next(response.items.length);
       } else {
@@ -31,9 +31,9 @@ export class CartService {
   }
 
   public loadCart(userId: string): void {
-    console.log('Sending request to load cart for userId:', userId); // Log de depuração
+    console.log('Sending request to load cart for userId:', userId);
     this._http.get(`${this.API_URL}?userId=${userId}`).subscribe((response: any) => {
-      console.log('Load cart response:', response); // Adicione log para depuração
+      console.log('Load cart response:', response);
       if (response && response.items) {
         this.cartItemCount.next(response.items.length);
       } else {

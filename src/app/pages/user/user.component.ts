@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/carrinho/cart.service';
+import { Product } from '../../models/product.model';
+import { ProductService } from '../../services/product/product-service.service';
 
 @Component({
   selector: 'app-user',
@@ -14,9 +16,11 @@ export class UserComponent implements OnInit {
 
   public name: string | null = '';
   public cartItemCount: number = 0;
+  public products = new Array<Product>();
 
   private readonly _router = inject(Router);
   private readonly _cartService = inject(CartService);
+  private readonly _productService = inject(ProductService);
 
   ngOnInit(): void {
     this.name = sessionStorage.getItem('nomeCompleto');
@@ -24,9 +28,13 @@ export class UserComponent implements OnInit {
     this._cartService.getCartItemCount().subscribe(count => {
       this.cartItemCount = count;
     });
-    if (userId) {
-      this._cartService.loadCart(userId);
-    }
+    this.getProducts();
+  }
+
+  public getProducts(): void {
+    this._productService.getProducts().subscribe((resp) => {
+      this.products = resp;
+    })
   }
 
   public navigate(): void {
@@ -40,7 +48,6 @@ export class UserComponent implements OnInit {
   public logout(): void {
     sessionStorage.removeItem('auth-token');
     sessionStorage.removeItem('username');
-    sessionStorage.removeItem('userId');
     sessionStorage.removeItem('nomeCompleto');
     this._router.navigate(['']);
   }
@@ -62,5 +69,13 @@ export class UserComponent implements OnInit {
     if (nomeCompleto) {
       this.cartItemCount++;
     }
+  }
+
+  public editProfile(): void {
+    this._router.navigate(['/edit-user']);
+  }
+
+  public carrinho(): void {
+    this._router.navigate(['/cart']);
   }
 }

@@ -75,7 +75,6 @@ export class SignUpComponent {
   }
   public checkCep(event: any, type: 'faturamento' | number): void {
     const cep = event.target.value.trim();
-    console.log('CEP:', cep);
     if (cep.length === 8) {
       this.validateCep(cep, type);
     } else {
@@ -84,10 +83,8 @@ export class SignUpComponent {
   }
 
   private validateCep(cep: string, type: 'faturamento' | number): void {
-    console.log('Validando CEP:', cep);
     this._http.get(`https://viacep.com.br/ws/${cep}/json/`).subscribe({
       next: (data: any) => {
-        console.log('Dados do CEP:', data);
         if (data.erro) {
           this._toastService.error('CEP não encontrado.');
         } else {

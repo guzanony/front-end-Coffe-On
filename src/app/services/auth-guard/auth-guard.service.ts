@@ -10,12 +10,6 @@ export class AuthGuardService implements CanActivate {
   private readonly _router = inject(Router);
 
   public canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const authToken = sessionStorage.getItem('auth-token');
-    if (authToken) {
-      return true;
-    } else {
-      this._router.navigate(['/login']);
-      return false;
-    }
+    return true;
   }
 }
