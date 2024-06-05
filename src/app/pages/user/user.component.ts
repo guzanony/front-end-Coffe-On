@@ -16,7 +16,7 @@ export class UserComponent implements OnInit {
 
   public name: string | null = '';
   public cartItemCount: number = 0;
-  public products: Product = new Product();
+  public products = new Array<Product>();
 
   private readonly _router = inject(Router);
   private readonly _cartService = inject(CartService);
@@ -33,7 +33,6 @@ export class UserComponent implements OnInit {
 
   public getProducts(): void {
     this._productService.getProducts().subscribe((resp) => {
-      console.log(resp)
       this.products = resp;
     })
   }
