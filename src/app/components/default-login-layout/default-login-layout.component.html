@@ -1,6 +1,15 @@
 <main>
+
+
+
   <section class="form-section">
-    <h2>{{title}}</h2>
+
+    <header class="header">
+      <h2>{{title}}</h2>
+      <p class="sub-title">Estamos felizes em vê-lo de volta</p>
+    </header>
+
+
     <ng-content></ng-content>
     <div class="btn-wrapper">
       <button aria-label="Submit" class="btn-primary" (click)="submit()">{{primaryBtnText}}</button>
@@ -10,7 +19,9 @@
       <button class="btn-secondary" (click)="navigate()">{{secondaryBtnText}}</button>
     </div>
   </section>
-  <section class="main-section">
-    <img src="/assets/svg/login-illustration.svg" alt="Ilustração de login" />
-  </section>
+<!--  <section class="main-section">-->
+<!--    <img src="/assets/svg/login-illustration.svg" alt="Ilustração de login" />-->
+<!--  </section>-->
 </main>
+
+
