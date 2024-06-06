@@ -1,46 +1,32 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { CartItem } from '../../models/cart-item.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cartItemCount = new BehaviorSubject<number>(0);
-  private readonly API_URL = 'http://localhost:8080/api/cart';
 
-  private readonly _http = inject(HttpClient);
+  private apiUrl = 'http://localhost:8080/api/cart';
 
-  public getCartItemCount(): Observable<number> {
-    return this.cartItemCount.asObservable();
-  }
+  constructor(private http: HttpClient) { }
 
-  public addToCart(userId: string, productId: string, quantity: number = 1): void {
-    const cartItem = { userId, productId, quantity };
-    console.log('Sending request to add to cart:', cartItem);
-    this._http.post(`${this.API_URL}/add`, cartItem).subscribe((response: any) => {
-      console.log('Cart response:', response);
-      if (response && response.items) {
-        this.cartItemCount.next(response.items.length);
-      } else {
-        console.error('Invalid cart response:', response);
-      }
-    }, error => {
-      console.error('Error adding to cart:', error);
+  private getAuthHeaders(): HttpHeaders {
+    const token = sessionStorage.getItem('auth-token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
     });
   }
 
-  public loadCart(userId: string): void {
-    console.log('Sending request to load cart for userId:', userId);
-    this._http.get(`${this.API_URL}?userId=${userId}`).subscribe((response: any) => {
-      console.log('Load cart response:', response);
-      if (response && response.items) {
-        this.cartItemCount.next(response.items.length);
-      } else {
-        console.error('Invalid load cart response:', response);
-      }
-    }, error => {
-      console.error('Error loading cart:', error);
-    });
+  public addToCart(cartItem: CartItem): Observable<any> {
+    console.log('Adding to cart:', cartItem);
+    return this.http.post(`${this.apiUrl}/add`, cartItem, { headers: this.getAuthHeaders() });
+  }
+
+  public getCart(userName: string): Observable<any> {
+    console.log('Getting cart for user:', userName);
+    const params = new HttpParams().set('nomeCompleto', userName);
+    return this.http.get(this.apiUrl, { headers: this.getAuthHeaders(), params });
   }
 }

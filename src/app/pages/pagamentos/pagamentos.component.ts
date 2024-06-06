@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './pagamentos.component.html',
-  styleUrl: './pagamentos.component.scss'
+  styleUrl: './pagamentos.component.scss',
 })
 export class PagamentosComponent {
   formaDePagamento: string = '';

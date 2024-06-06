@@ -12,6 +12,11 @@ export class ProductService {
   private readonly _http = inject(HttpClient);
 
   public getProducts(): Observable<any> {
-    return this._http.get(`${this.API_URL_PRODUCT}`)
+    return this._http.get(`${this.API_URL_PRODUCT}`);
   }
+
+  public getProductImageUrl(id: number): Observable<Blob> {
+    return this._http.get(`${this.API_URL_PRODUCT}/image/${id}`, { responseType: 'blob' });
+  }
+
 }
