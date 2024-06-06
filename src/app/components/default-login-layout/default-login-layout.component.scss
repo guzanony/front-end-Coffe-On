@@ -36,11 +36,33 @@ main {
     width: 50%;
     padding: 0 35px;
 
+  .header{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+    justify-content: center;
+    margin-bottom: 30px;
+
     h2 {
-      font-size: 30px;
+ feature/criacao-components
+      color: #4a40e0;
+      width: 100%;
+      font-size: 60px;
       font-weight: bold;
-      margin-bottom: 45px;
     }
+
+    .sub-title{
+      font-size: 22px;
+=======
+      font-size: 30px;
+ develop
+      font-weight: bold;
+      color: #5c76f2;
+      letter-spacing: 1.5px;
+    }
+  }
+
 
     .btn-wrapper {
       margin-top: 30px;
@@ -48,23 +70,34 @@ main {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+ feature/criacao-components
+      margin-top: 25px;
+      width: 100%;
+      gap: 15px;
+=======
       width: 80%;
       gap: 30px;
+ develop
 
       button {
         width: 100%;
         border-radius: 8px;
-        font-size: 16px;
-        font-weight: 500;
+        font-size: 18px;
+        font-weight: 700;
         border: none;
-        background: $primary-color;
+        background: #1c1c1c;
         color: white;
+        margin-top: 15px;
         padding: 12px 24px;
         cursor: pointer;
+ feature/criacao-components
+        transition: all 500ms ease;
+=======
         transition: all 1s ease-out;;
+ develop
 
         &:hover {
-          background-color: darken($primary-color, 10%);
+          background-color: #313131;
         }
 
         &:disabled {
@@ -73,10 +106,18 @@ main {
 
         &.btn-secondary {
           background-color: transparent;
-          border: 1px solid $primary-color;
-          color: $primary-color;
+          border: 1px solid #1c1c1c;
+          color: #1c1c1c;
+        }
+
+        &.btn-secondary:hover{
+          background-color: #1c1c1c;
+          border: 1px solid #1c1c1c;
+          color: #f9f9f9;
         }
       }
     }
   }
 }
+
+

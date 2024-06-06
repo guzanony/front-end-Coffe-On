@@ -1,18 +1,40 @@
-<app-default-login-layout
-  title="Faça o login para acessar sua conta"
-  primaryBtnText="Entrar"
-  secondaryBtnText="Criar conta"
-  (submit)="submit()"
-  (navigate)="navigate()"
->
-  <form [formGroup]="loginForm">
-    <app-primary-input
-      formControlName="email"
-      inputName="email"
-      type="email"
-      label="Email"
-      placeHolder="nome@exemplo.com"
+<main class="container">
+
+  <section class="formulario">
+    <app-default-login-layout
+      title="Bem Vindo"
+      primaryBtnText="Entrar"
+      secondaryBtnText="Criar conta"
+      (submit)="submit()"
+      (navigate)="navigate()"
     >
+feature/criacao-components
+      <form [formGroup]="loginForm">
+        <app-primary-input
+          formControlName="email"
+          inputName="email"
+          type="email"
+          label="Email"
+          placeHolder="nome@exemplo.com"
+        >
+        </app-primary-input>
+        <app-primary-input
+          formControlName="password"
+          inputName="password"
+          type="password"
+          label="Sua senha"
+        >
+        </app-primary-input>
+      </form>
+    </app-default-login-layout>
+  </section>
+
+  <section class="img-container">
+    <img class="img" src="/assets/svg/login-illustration.svg" alt="Ilustração de login" />
+  </section>
+
+</main>
+=======
     </app-primary-input>
     <app-primary-input
       formControlName="password"
@@ -23,3 +45,4 @@
     </app-primary-input>
   </form>
 </app-default-login-layout>
+develop
