@@ -121,7 +121,7 @@
                         {{ product.preco | currency : "BRL" }}
                       </p>
                       <a
-                        (click)="navigateProductDetail()"
+                        (click)="navigateProductDetail(product.id)"
                         class="btn btn-outline-dark"
                         >Detalhes</a
                       >

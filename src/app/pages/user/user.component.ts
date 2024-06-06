@@ -68,13 +68,13 @@ export class UserComponent implements OnInit {
     this._router.navigate(['/singnup']);
   }
 
-  public navigateProductDetail(): void {
-    this._router.navigate(['/product-details']);
+  public navigateProductDetail(id: number): void {
+    this._router.navigate(['/product-details', id]);
   }
 
   public addToCart(product: Product): void {
     const cartItem = { productId: product.id, userName: this.getUserName(), quantity: 1 };
-    console.log('Adding to cart:', cartItem);  // Log the cart item being sent
+    console.log('Adding to cart:', cartItem);
     this._cartService.addToCart(cartItem).subscribe({
         next: (resp) => {
             console.log('Product added to cart successfully', resp);

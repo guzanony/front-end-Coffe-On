@@ -9,12 +9,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.scss'
+  styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
 
-  public product: any = null;
-  public products = new Array<Product>();
+  public product: Product | null = null;
 
   private readonly _router = inject(Router);
   private readonly _route = inject(ActivatedRoute);
@@ -22,23 +21,24 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const productId = this._route.snapshot.paramMap.get('id');
-    this.loadProduct(productId);
-    this.getProduct();
+    if (productId) {
+      this.loadProduct(+productId);
+    }
   }
 
-  loadProduct(productId: string | null) {
-    const products = JSON.parse(localStorage.getItem('products') || '[]');
-    this.product = products.find((product: any) => product.id === productId);
+  private loadProduct(productId: number): void {
+    this._productService.getProducts().subscribe((products) => {
+      this.product = products.find((product: Product) => product.id === productId) || null;
+      if (this.product) {
+        this._productService.getProductImageUrl(this.product.id).subscribe(blob => {
+          const objectUrl = URL.createObjectURL(blob);
+          this.product!.imagemUrl = objectUrl;
+        });
+      }
+    });
   }
 
   public comprar(): void {
     this._router.navigate(['/cart']);
-  }
-
-  private getProduct(): void {
-    this._productService.getProducts().subscribe((resp)=> {
-      console.log(resp)
-    this.products = resp;
-    })
   }
 }

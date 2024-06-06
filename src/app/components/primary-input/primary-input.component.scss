@@ -1,22 +1,18 @@
 @import "../../../styles/variables.scss";
 
 .input-wrapper {
- feature/criacao-components
     color: #2c2c2c;
-=======
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: $text-color;
-develop
     font-size: 16px;
     text-align: start;
     //background-color: #1e7e34;
     height: 100px;
 
     label {
- feature/criacao-components
       letter-spacing: 1.5px;
       font-weight: 600;
     }
@@ -25,7 +21,6 @@ develop
       width: 100%;
       margin: 10px 0px 10px 0px;
       display: flex;
-=======
       width: 80%;
       text-align: left;
       margin-bottom: 15px;
@@ -45,7 +40,6 @@ develop
                 height: 20px;
             }
         }
-develop
 
         input {
           border: none;
