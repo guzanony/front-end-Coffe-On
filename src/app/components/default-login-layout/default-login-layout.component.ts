@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-default-login-layout',
   standalone: true,
-  imports: [],
+  imports: [
+    MatSlideToggle
+  ],
   templateUrl: './default-login-layout.component.html',
   styleUrl: './default-login-layout.component.scss'
 })

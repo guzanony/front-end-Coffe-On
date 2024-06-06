@@ -1,3 +1,5 @@
+
+
 <app-default-login-layout
   title="Crie sua conta"
   primaryBtnText="Cadastrar"
@@ -6,188 +8,193 @@
   (navigate)="navigate()"
   [disabledPrimaryBtn]="!signUpForm.valid"
 >
-  <form [formGroup]="signUpForm">
-    <app-primary-input
-      formControlName="nomeCompleto"
-      inputName="nomeCompleto"
-      type="text"
-      label="Nome Completo"
-      placeHolder="Seu nome completo"
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="dataNascimento"
-      inputName="dataNascimento"
-      type="dataNascimento"
-      label="Data de Nascimento"
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="genero"
-      inputName="genero"
-      type="text"
-      label="Gênero"
-      placeHolder="Seu gênero"
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="password"
-      inputName="password"
-      type="password"
-      label="Sua senha"
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="password"
-      inputName="password"
-      type="password"
-      label="Repita sua senha"
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="email"
-      inputName="email"
-      type="email"
-      label="Email"
-      placeHolder="nome@exemplo.com"
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="cpf"
-      inputName="cpf"
-      type="text"
-      label="CPF"
-      placeHolder="XXX.XXX.XXX-XX"
-    ></app-primary-input>
+  <main>
+    <form [formGroup]="signUpForm">
+      <app-primary-input
+        formControlName="nomeCompleto"
+        inputName="nomeCompleto"
+        type="text"
+        label="Nome Completo"
+        placeHolder="Seu nome completo"
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="dataNascimento"
+        inputName="dataNascimento"
+        type="dataNascimento"
+        label="Data de Nascimento"
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="genero"
+        inputName="genero"
+        type="text"
+        label="Gênero"
+        placeHolder="Seu gênero"
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="password"
+        inputName="password"
+        type="password"
+        label="Sua senha"
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="password"
+        inputName="password"
+        type="password"
+        label="Repita sua senha"
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="email"
+        inputName="email"
+        type="email"
+        label="Email"
+        placeHolder="nome@exemplo.com"
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="cpf"
+        inputName="cpf"
+        type="text"
+        label="CPF"
+        placeHolder="XXX.XXX.XXX-XX"
+      ></app-primary-input>
 
-    <h3>Endereço de Faturamento</h3>
-    <app-primary-input
-      formControlName="cepFaturamento"
-      inputName="cepFaturamento"
-      type="cepFaturamento"
-      label="CEP de Faturamento"
-      placeHolder="XXXXX-XXX"
-      (blur)="checkCep($event, 'faturamento')"
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="logradouroFaturamento"
-      inputName="logradouroFaturamento"
-      type="text"
-      label="Logradouro de Faturamento"
-      placeHolder="Rua, Avenida, etc."
-      readonly
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="numeroFaturamento"
-      inputName="numeroFaturamento"
-      type="text"
-      label="Número de Faturamento"
-      placeHolder="Número"
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="complementoFaturamento"
-      inputName="complementoFaturamento"
-      type="text"
-      label="Complemento de Faturamento"
-      placeHolder="Complemento"
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="bairroFaturamento"
-      inputName="bairroFaturamento"
-      type="text"
-      label="Bairro de Faturamento"
-      placeHolder="Bairro"
-      readonly
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="cidadeFaturamento"
-      inputName="cidadeFaturamento"
-      type="text"
-      label="Cidade de Faturamento"
-      placeHolder="Cidade"
-      readonly
-    ></app-primary-input>
-    <app-primary-input
-      formControlName="ufFaturamento"
-      inputName="ufFaturamento"
-      type="text"
-      label="UF de Faturamento"
-      placeHolder="UF"
-      readonly
-    ></app-primary-input>
+      <h3>Endereço de Faturamento</h3>
+      <app-primary-input
+        formControlName="cepFaturamento"
+        inputName="cepFaturamento"
+        type="cepFaturamento"
+        label="CEP de Faturamento"
+        placeHolder="XXXXX-XXX"
+        (blur)="checkCep($event, 'faturamento')"
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="logradouroFaturamento"
+        inputName="logradouroFaturamento"
+        type="text"
+        label="Logradouro de Faturamento"
+        placeHolder="Rua, Avenida, etc."
+        readonly
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="numeroFaturamento"
+        inputName="numeroFaturamento"
+        type="text"
+        label="Número de Faturamento"
+        placeHolder="Número"
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="complementoFaturamento"
+        inputName="complementoFaturamento"
+        type="text"
+        label="Complemento de Faturamento"
+        placeHolder="Complemento"
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="bairroFaturamento"
+        inputName="bairroFaturamento"
+        type="text"
+        label="Bairro de Faturamento"
+        placeHolder="Bairro"
+        readonly
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="cidadeFaturamento"
+        inputName="cidadeFaturamento"
+        type="text"
+        label="Cidade de Faturamento"
+        placeHolder="Cidade"
+        readonly
+      ></app-primary-input>
+      <app-primary-input
+        formControlName="ufFaturamento"
+        inputName="ufFaturamento"
+        type="text"
+        label="UF de Faturamento"
+        placeHolder="UF"
+        readonly
+      ></app-primary-input>
 
-    <h3>Endereços de Entrega</h3>
-    <div formArrayName="enderecos">
-      <div
-        *ngFor="let endereco of enderecos.controls; let i = index"
-        [formGroupName]="i"
-      >
-        <h4>Endereço {{ i + 1 }}</h4>
-        <app-primary-input
-          formControlName="cep"
-          inputName="cep"
-          type="text"
-          label="CEP"
-          placeHolder="XXXXX-XXX"
-          (blur)="checkCep($event, i)"
-        ></app-primary-input>
-        <app-primary-input
-          formControlName="logradouro"
-          inputName="logradouro"
-          type="text"
-          label="Logradouro"
-          placeHolder="Rua, Avenida, etc."
-          readonly
-        ></app-primary-input>
-        <app-primary-input
-          formControlName="numero"
-          inputName="numero"
-          type="text"
-          label="Número"
-          placeHolder="Número"
-        ></app-primary-input>
-        <app-primary-input
-          formControlName="complemento"
-          inputName="complemento"
-          type="text"
-          label="Complemento"
-          placeHolder="Complemento"
-        ></app-primary-input>
-        <app-primary-input
-          formControlName="bairro"
-          inputName="bairro"
-          type="text"
-          label="Bairro"
-          placeHolder="Bairro"
-          readonly
-        ></app-primary-input>
-        <app-primary-input
-          formControlName="cidade"
-          inputName="cidade"
-          type="text"
-          label="Cidade"
-          placeHolder="Cidade"
-          readonly
-        ></app-primary-input>
-        <app-primary-input
-          formControlName="uf"
-          inputName="uf"
-          type="text"
-          label="UF"
-          placeHolder="UF"
-          readonly
-        ></app-primary-input>
-        <div>
-          <label>
-            <input
-              type="radio"
-              name="defaultAddress"
-              [value]="i"
-              [checked]="endereco.get('isDefault')?.value"
-              (change)="setDefaultEndereco(i)"
-            />
-            Endereço Padrão
-          </label>
+      <h3>Endereços de Entrega</h3>
+      <div formArrayName="enderecos">
+        <div
+          *ngFor="let endereco of enderecos.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <h4>Endereço {{ i + 1 }}</h4>
+          <app-primary-input
+            formControlName="cep"
+            inputName="cep"
+            type="text"
+            label="CEP"
+            placeHolder="XXXXX-XXX"
+            (blur)="checkCep($event, i)"
+          ></app-primary-input>
+          <app-primary-input
+            formControlName="logradouro"
+            inputName="logradouro"
+            type="text"
+            label="Logradouro"
+            placeHolder="Rua, Avenida, etc."
+            readonly
+          ></app-primary-input>
+          <app-primary-input
+            formControlName="numero"
+            inputName="numero"
+            type="text"
+            label="Número"
+            placeHolder="Número"
+          ></app-primary-input>
+          <app-primary-input
+            formControlName="complemento"
+            inputName="complemento"
+            type="text"
+            label="Complemento"
+            placeHolder="Complemento"
+          ></app-primary-input>
+          <app-primary-input
+            formControlName="bairro"
+            inputName="bairro"
+            type="text"
+            label="Bairro"
+            placeHolder="Bairro"
+            readonly
+          ></app-primary-input>
+          <app-primary-input
+            formControlName="cidade"
+            inputName="cidade"
+            type="text"
+            label="Cidade"
+            placeHolder="Cidade"
+            readonly
+          ></app-primary-input>
+          <app-primary-input
+            formControlName="uf"
+            inputName="uf"
+            type="text"
+            label="UF"
+            placeHolder="UF"
+            readonly
+          ></app-primary-input>
+          <div>
+            <label>
+              <input
+                type="radio"
+                name="defaultAddress"
+                [value]="i"
+                [checked]="endereco.get('isDefault')?.value"
+                (change)="setDefaultEndereco(i)"
+              />
+              Endereço Padrão
+            </label>
+          </div>
+          <button type="button" (click)="removeEndereco(i)">
+            Remover Endereço
+          </button>
         </div>
-        <button type="button" (click)="removeEndereco(i)">
-          Remover Endereço
-        </button>
       </div>
-    </div>
-    <button type="button" (click)="addEndereco()">Adicionar Endereço</button>
-  </form>
+      <button type="button" (click)="addEndereco()">Adicionar Endereço</button>
+    </form>
+  </main>
+
 </app-default-login-layout>
+
+

@@ -1,16 +1,38 @@
 @import "../../../styles/variables.scss";
 
 .input-wrapper {
+ feature/criacao-components
+    color: #2c2c2c;
+=======
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color: $text-color;
+develop
     font-size: 16px;
     text-align: start;
+    //background-color: #1e7e34;
+    height: 100px;
 
     label {
-        margin-bottom: 10px;
+ feature/criacao-components
+      letter-spacing: 1.5px;
+      font-weight: 600;
     }
 
     .input-content {
-        width: 100%;
+      width: 100%;
+      margin: 10px 0px 10px 0px;
+      display: flex;
+=======
+      width: 80%;
+      text-align: left;
+      margin-bottom: 15px;
+    }
+
+    .input-content {
+        width: 80%;
         border-radius: 8px;
         display: flex;
 
@@ -23,13 +45,16 @@
                 height: 20px;
             }
         }
+develop
 
         input {
-            border: none;
-            border-radius: 8px 0 0 8px;
-            background-color: $gray-secondary-bg;
-            padding: 12px 0 12px 20px;
-            width: 100%;
+          border: none;
+          border-radius: 8px;
+          outline-style: solid;
+          outline-width: medium;
+          background-color: $gray-secondary-bg;
+          padding: 12px 0 12px 20px;
+          width: 100%;
         }
     }
 }
