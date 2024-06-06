@@ -1,11 +1,22 @@
 @import "../../../styles/variables.scss";
 
 .input-wrapper {
+ feature/criacao-components
     color: #2c2c2c;
+=======
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $text-color;
+develop
     font-size: 16px;
     text-align: start;
+    //background-color: #1e7e34;
+    height: 100px;
 
     label {
+ feature/criacao-components
       letter-spacing: 1.5px;
       font-weight: 600;
     }
@@ -14,6 +25,27 @@
       width: 100%;
       margin: 10px 0px 10px 0px;
       display: flex;
+=======
+      width: 80%;
+      text-align: left;
+      margin-bottom: 15px;
+    }
+
+    .input-content {
+        width: 80%;
+        border-radius: 8px;
+        display: flex;
+
+        .icon {
+            padding: 12px;
+            background-color: $primary-color;
+            border-radius: 0 8px 8px 0;
+
+            img {
+                height: 20px;
+            }
+        }
+develop
 
         input {
           border: none;

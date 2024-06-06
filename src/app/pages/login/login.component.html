@@ -8,6 +8,7 @@
       (submit)="submit()"
       (navigate)="navigate()"
     >
+feature/criacao-components
       <form [formGroup]="loginForm">
         <app-primary-input
           formControlName="email"
@@ -33,3 +34,15 @@
   </section>
 
 </main>
+=======
+    </app-primary-input>
+    <app-primary-input
+      formControlName="password"
+      inputName="password"
+      type="password"
+      label="Senha"
+    >
+    </app-primary-input>
+  </form>
+</app-default-login-layout>
+develop
