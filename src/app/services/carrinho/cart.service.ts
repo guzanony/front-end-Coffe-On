@@ -1,32 +1,37 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CartItem } from '../../models/cart-item.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  private apiUrl = 'http://localhost:8080/api/cart';
+  private baseUrl = 'http://localhost:8080/carts';
 
-  constructor(private http: HttpClient) { }
+  private readonly _http = inject(HttpClient);
 
-  private getAuthHeaders(): HttpHeaders {
-    const token = sessionStorage.getItem('auth-token');
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+  public createCart(): Observable<any> {
+    return this._http.post(`${this.baseUrl}`, {});
   }
 
-  public addToCart(cartItem: CartItem): Observable<any> {
-    console.log('Adding to cart:', cartItem);
-    return this.http.post(`${this.apiUrl}/add`, cartItem, { headers: this.getAuthHeaders() });
+  public getCart(cartId: number): Observable<any> {
+    return this._http.get(`${this.baseUrl}/${cartId}`);
   }
 
-  public getCart(userName: string): Observable<any> {
-    console.log('Getting cart for user:', userName);
-    const params = new HttpParams().set('nomeCompleto', userName);
-    return this.http.get(this.apiUrl, { headers: this.getAuthHeaders(), params });
+  public addItemToCart(cartId: number, productId: number, quantity: number): Observable<any> {
+    return this._http.post(`${this.baseUrl}/${cartId}/items`, { productId, quantity });
+  }
+
+  public updateItemInCart(cartId: number, itemId: number, quantity: number): Observable<any> {
+    return this._http.put(`${this.baseUrl}/${cartId}/items/${itemId}`, { quantity });
+  }
+
+  public removeItemFromCart(cartId: number, itemId: number): Observable<any> {
+    return this._http.delete(`${this.baseUrl}/${cartId}/items/${itemId}`);
+  }
+
+  public getItemCount(cartId: number): Observable<number> {
+    return this._http.get<number>(`${this.baseUrl}/${cartId}/count`);
   }
 }

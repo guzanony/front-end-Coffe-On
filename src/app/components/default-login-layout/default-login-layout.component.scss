@@ -42,7 +42,7 @@ main {
     flex-direction: column;
     row-gap: 2px;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     h2 {
       color: #4a40e0;
@@ -52,8 +52,7 @@ main {
     }
 
     .sub-title{
-      font-size: 22px;
-      font-size: 30px;
+      font-size: 20px;
       font-weight: bold;
       color: #5c76f2;
       letter-spacing: 1.5px;
@@ -70,7 +69,7 @@ main {
       margin-top: 25px;
       width: 100%;
       gap: 15px;
-      width: 80%;
+      width: 100%;
       gap: 30px;
 
       button {

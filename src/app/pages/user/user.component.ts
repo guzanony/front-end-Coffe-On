@@ -18,6 +18,7 @@ export class UserComponent implements OnInit {
   public cartItemCount: number = 0;
   public idProduct: number = 1;
   public products = new Array<Product>();
+  public cartId!: number;
 
   private readonly _router = inject(Router);
   private readonly _cartService = inject(CartService);
@@ -25,8 +26,8 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.name = sessionStorage.getItem('nomeCompleto');
-    this.updateCartCount();
     this.getProducts();
+    this.initializeCart();
   }
 
   public getProducts(): void {
@@ -57,6 +58,7 @@ export class UserComponent implements OnInit {
     sessionStorage.removeItem('auth-token');
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('nomeCompleto');
+    sessionStorage.removeItem('cartId');
     this._router.navigate(['']);
   }
 
@@ -72,10 +74,19 @@ export class UserComponent implements OnInit {
     this._router.navigate(['/product-details', id]);
   }
 
+  private updateCartCount(): void {
+    this._cartService.getCart(this.cartId).subscribe({
+      next: (cart) => {
+        this.cartItemCount = cart.items.reduce((sum: any, item: any) => sum + item.quantity, 0);
+      },
+      error: (error) => console.error('Error updating cart count:', error)
+    });
+  }
+
   public addToCart(product: Product): void {
     const cartItem = { productId: product.id, userName: this.getUserName(), quantity: 1 };
     console.log('Adding to cart:', cartItem);
-    this._cartService.addToCart(cartItem).subscribe({
+    this._cartService.addItemToCart(this.cartId, product.id, 1).subscribe({
         next: (resp) => {
             console.log('Product added to cart successfully', resp);
             this.updateCartCount();
@@ -85,14 +96,23 @@ export class UserComponent implements OnInit {
         }
     });
 }
-  private updateCartCount(): void {
-    this._cartService.getCart(this.getUserName()).subscribe({
+
+private initializeCart(): void {
+  const cartId = sessionStorage.getItem('cartId');
+  if (cartId) {
+    this.cartId = parseInt(cartId, 10);
+    this.updateCartCount();
+  } else {
+    this._cartService.createCart().subscribe({
       next: (cart) => {
-        this.cartItemCount = cart.items.reduce((sum: any, item: any) => sum + item.quantity, 0);
+        this.cartId = cart.id;
+        sessionStorage.setItem('cartId', cart.id.toString());
+        this.updateCartCount();
       },
-      error: (error) => console.error('Error updating cart count:', error)
+      error: (error) => console.error('Error creating cart:', error)
     });
   }
+}
 
   public editProfile(): void {
     this._router.navigate(['/edit-user']);

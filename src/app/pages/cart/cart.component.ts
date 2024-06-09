@@ -1,75 +1,78 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
-
-interface CartItem {
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
+import { CartService } from '../../services/carrinho/cart.service';
+import { CommonModule } from '@angular/common';
+import { ProductService } from '../../services/product/product-service.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
+  imports: [CommonModule, FormsModule],
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss'
+  styleUrls: ['./cart.component.scss']
 })
-export class CartComponent {
+export class CartComponent implements OnInit {
 
-  private readonly router = inject(Router)
+  cart: any = {};
+  shippingCost: number = 0;
+  shippingOptions = [5, 10, 15];
 
-  cartItems: CartItem[] = [];
-  cep: string = '';
-  selectedFreteOption: string = '';
-  freteOptions: string[] = ['Correios', 'Sedex', 'FedEx'];
-  subtotal: number = 0;
-  freteValor: number = 0;
-  total: number = 0;
+  private readonly _cartService = inject(CartService);
+  private readonly _productService = inject(ProductService);
 
-  addProduct(productName: string, productPrice: number) {
-    const newItem: CartItem = {
-      name: productName,
-      price: productPrice,
-      quantity: 1,
-      image: 'placeholder.jpg'
-    };
-    this.cartItems.push(newItem);
-    this.updateSubtotal();
+  ngOnInit(): void {
+    this.loadCart();
   }
 
-  removeProduct(item: CartItem) {
-    const index = this.cartItems.indexOf(item);
-    if (index !== -1) {
-      this.cartItems.splice(index, 1);
-      this.updateSubtotal();
+  private loadCart(): void {
+    const cartId = parseInt(sessionStorage.getItem('cartId')!, 10);
+    if (cartId) {
+      this._cartService.getCart(cartId).subscribe(data => {
+        this.cart = data;
+        this.calculateSubtotal();
+        this.cart.items.forEach((item: any) => {
+          this._productService.getProductImageUrl(item.product.id).subscribe(blob => {
+            const objectUrl = URL.createObjectURL(blob);
+            item.product.imagemUrl = objectUrl;
+          });
+        });
+      });
     }
   }
 
-  incrementQuantity(item: CartItem) {
-    item.quantity += 1;
-    this.updateSubtotal();
-  }
-
-  decrementQuantity(item: CartItem) {
-    if (item.quantity > 1) {
-      item.quantity -= 1;
-      this.updateSubtotal();
+  public updateQuantity(itemId: number, quantity: number): void {
+    const cartId = this.cart.id;
+    if (quantity < 1) {
+      quantity = 1;
     }
+    this._cartService.updateItemInCart(cartId, itemId, quantity).subscribe(() => {
+      this.loadCart();
+    });
   }
 
-  updateSubtotal() {
-    this.subtotal = this.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    this.freteValor = this.subtotal > 100 ? 0 : 10;
-    this.total = this.subtotal + this.freteValor;
+  public removeItem(itemId: number): void {
+    const cartId = this.cart.id;
+    this._cartService.removeItemFromCart(cartId, itemId).subscribe({
+      next: () => {
+        this.loadCart();
+      },
+      error: (error) => {
+        console.error('Error removing item from cart:', error);
+      }
+    });
   }
 
-  calcularFrete() {
-    this.updateSubtotal();
+  public calculateSubtotal(): number {
+    let subtotal = 0;
+    if (this.cart.items) {
+      this.cart.items.forEach((item: any) => {
+        subtotal += item.product.preco * item.quantity;
+      });
+    }
+    return subtotal;
   }
 
-  public goToPagamentos() {
-    this.router.navigate(['/pagamentos'])
+  public calculateTotal(): number {
+    return this.calculateSubtotal() + this.shippingCost;
   }
 }
