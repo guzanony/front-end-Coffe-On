@@ -7,6 +7,7 @@ import { EnderecoEntregaFormModel, SignUpFormModel } from '../../models/singnup-
 import { DefaultLoginLayoutComponent } from '../../components/default-login-layout/default-login-layout.component';
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
 import { CommonModule } from '@angular/common';
+import { SingUpService } from '../../services/singUp/singUp.service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class SignUpComponent {
 
   private readonly _router = inject(Router);
   private readonly _toastService = inject(ToastrService);
+  private readonly _signUpService = inject(SingUpService);
   private readonly _http = inject(HttpClient);
 
   constructor() {
@@ -68,11 +70,17 @@ export class SignUpComponent {
 
   public submit(): void {
     if (this.signUpForm.valid) {
-      this._toastService.success('Cadastro feito com sucesso');
-    } else {
-      this._toastService.error('Por favor, preencha todos os campos obrigatórios corretamente.');
+      const signUpData = {
+        ...this.signUpForm.value,
+        enderecosEntrega: this.enderecos.controls.map(group => group.value)
+      };
+      this._signUpService.signUp(signUpData).subscribe({
+        next: () => this._toastService.success('Cadastro feito com sucesso'),
+        error: () => this._toastService.error('Erro inesperado! Tente novamente mais tarde')
+      });
     }
   }
+
   public checkCep(event: any, type: 'faturamento' | number): void {
     const cep = event.target.value.trim();
     if (cep.length === 8) {

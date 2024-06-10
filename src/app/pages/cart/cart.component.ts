@@ -1,8 +1,11 @@
+import { Address } from './../../models/singnup-form.model';
 import { Component, OnInit, inject } from '@angular/core';
 import { CartService } from '../../services/carrinho/cart.service';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product/product-service.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AddressService } from '../../services/enderecos/address-service.';
 
 interface ShippingOption {
   description: string;
@@ -22,12 +25,17 @@ export class CartComponent implements OnInit {
   public shippingCost: number = 0;
   public shippingOptions: ShippingOption[] = [];
   public cep: string = '';
+  public addresses = new Array<Address>();
+  public selectedAddress: any;
 
   private readonly _cartService = inject(CartService);
   private readonly _productService = inject(ProductService);
+  private readonly _router = inject(Router);
+  private readonly _addressService = inject(AddressService);
 
   ngOnInit(): void {
     this.loadCart();
+    this.loadAddresses();
   }
 
   private loadCart(): void {
@@ -42,6 +50,19 @@ export class CartComponent implements OnInit {
             item.product.imagemUrl = objectUrl;
           });
         });
+      });
+    }
+  }
+
+  private loadAddresses(): void {
+    const clienteId = parseInt(sessionStorage.getItem('clienteId')!, 10);
+    if (clienteId) {
+      this._addressService.getUserAddresses(clienteId).subscribe(data => {
+        console.log(data)
+        this.addresses = data;
+        if (this.addresses.length > 0) {
+          this.selectedAddress = this.addresses[0];
+        }
       });
     }
   }
@@ -88,5 +109,26 @@ export class CartComponent implements OnInit {
 
   public calculateTotal(): number {
     return this.calculateSubtotal() + this.shippingCost;
+  }
+
+  public navigateToCheckout(): void {
+    if (sessionStorage.getItem('auth-token')) {
+      this._router.navigate(['/pagamentos']);
+    } else {
+      sessionStorage.setItem('redirectAfterLogin', '/pagamentos');
+      this._router.navigate(['/login']);
+    }
+  }
+
+  public selectAddress(address: any): void {
+    this.selectedAddress = address;
+  }
+
+  public navigateToAddressEdit(): void {
+    this._router.navigate(['/edit-address']);
+  }
+
+  public navigateToAddressSelection(): void {
+    this._router.navigate(['/select-address']);
   }
 }

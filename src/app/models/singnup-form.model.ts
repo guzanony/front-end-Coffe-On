@@ -28,6 +28,17 @@ export interface EnderecoEntregaFormModel {
   isDefault: FormControl<boolean | null>;
 }
 
+export interface Address {
+id: number;
+cep: number;
+logradouro: string;
+numero: number;
+complemento?: string;
+bairro: string;
+cidade: string;
+uf: string;
+}
+
 export interface EditProfileFormModel {
   nomeCompleto: FormControl<string | null>;
   dataNascimento: FormControl<string | null>;

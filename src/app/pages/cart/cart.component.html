@@ -85,11 +85,28 @@
                 <p id="freteValor" class="fs-5">Frete: R$ {{ shippingCost | currency }}</p>
                 <p id="total" class="fs-3">Total a pagar: R$ {{ calculateTotal() | currency }}</p>
                 <div class="d-grid">
-                    <a class="btn btn-lg btn-warning mt-4" routerLink="/telaPagamento">
+                    <a class="btn btn-lg btn-warning mt-4" (click)="navigateToCheckout()">
                         Ir para Pagamento <i class="bi bi-credit-card-2-back ms-1"></i>
                     </a>
                 </div>
             </article>
+            <article class="col-12 p-4 border rounded-4 justify-content-center align-items-center g-2 shadow mt-4">
+              <h2 class="text-center mb-4">Endereço de Entrega</h2>
+              <div *ngIf="addresses.length > 0">
+                  <div class="address" *ngFor="let address of addresses">
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="address" [value]="address" (change)="selectAddress(address)" [checked]="address === selectedAddress">
+                          <label class="form-check-label">
+                              {{ address.logradouro }}<br>
+                              {{ address.numero }}, {{ address.complemento }}<br>
+                              CEP: {{ address.cep }} - {{ address.cidade }}/{{ address.uf }}<br>
+                          </label>
+                      </div>
+                  </div>
+              </div>
+              <button class="btn btn-primary mt-2" (click)="navigateToAddressEdit()">Editar</button>
+              <button class="btn btn-secondary mt-2" (click)="navigateToAddressSelection()">Selecionar Outro</button>
+          </article>
         </div>
     </div>
 </section>
