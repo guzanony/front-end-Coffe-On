@@ -2,20 +2,26 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CartService } from '../../services/carrinho/cart.service';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product/product-service.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+interface ShippingOption {
+  description: string;
+  cost: number;
+}
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   standalone: true,
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
 
-  cart: any = {};
-  shippingCost: number = 0;
-  shippingOptions = [5, 10, 15];
+  public cart: any = {};
+  public shippingCost: number = 0;
+  public shippingOptions: ShippingOption[] = [];
+  public cep: string = '';
 
   private readonly _cartService = inject(CartService);
   private readonly _productService = inject(ProductService);
@@ -70,6 +76,14 @@ export class CartComponent implements OnInit {
       });
     }
     return subtotal;
+  }
+
+  public calculateShipping(): void {
+    this.shippingOptions = [
+      { description: 'Entrega Econômica', cost: 29.25 },
+      { description: 'Entrega Expressa', cost: 44.60 },
+      { description: 'Entrega Agendada', cost: 29.25 }
+    ];
   }
 
   public calculateTotal(): number {

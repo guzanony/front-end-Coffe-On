@@ -1,29 +1,12 @@
 @import "../../../styles/variables.scss";
 
 .input-wrapper {
-    color: #2c2c2c;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     color: $text-color;
     font-size: 16px;
     text-align: start;
-    //background-color: #1e7e34;
-    height: 100px;
 
     label {
-      width: 100%;
-      letter-spacing: 1.5px;
-      font-weight: 600;
-    }
-
-    .input-content {
-      width: 100%;
-      margin: 10px 0px 10px 0px;
-      display: flex;
-      text-align: left;
-      margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     .input-content {
@@ -42,13 +25,11 @@
         }
 
         input {
-          border: none;
-          border-radius: 8px;
-          outline-style: solid;
-          outline-width: medium;
-          background-color: $gray-secondary-bg;
-          padding: 12px 0 12px 20px;
-          width: 100%;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            background-color: $gray-secondary-bg;
+            padding: 12px 0 12px 20px;
+            width: 100%;
         }
     }
 }

@@ -65,27 +65,20 @@
         </article>
 
         <div class="row justify-content-between mt-4">
-            <article class="col-6 p-4 border rounded-4 justify-content-center align-items-center g-2 shadow">
-                <h2 class="text-center mb-4">Calcular Frete <i class="bi bi-truck text-success"></i></h2>
-                <div class="mb-3">
-                    <label for="frete" class="form-label">Digite seu CEP :</label>
-                    <input type="text" name="frete" id="frete" class="form-control" aria-describedby="helpId"/>
-                    <small id="helpId" class="text-muted">Digite só números</small>
-                </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Opções de frete</label>
-                    <div *ngFor="let option of shippingOptions" class="form-check">
-                        <input class="form-check-input" type="radio" name="shipping" [value]="option" (change)="shippingCost = option">
-                        <label class="form-check-label">{{ option | currency }}</label>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <!-- <button type="submit" name="calcularFrete" id="calculaFrete" class="btn btn-lg btn-dark" (click)="calculateShipping()">
-                        Calcular Frete
-                    </button> -->
-                </div>
-            </article>
-
+          <article class="col-6 p-4 border rounded-4 justify-content-center align-items-center g-2 shadow">
+              <h2 class="text-center mb-4">Calcular Frete <i class="bi bi-truck text-success"></i></h2>
+              <div class="mb-3">
+                  <label for="frete" class="form-label">Digite seu CEP :</label>
+                  <input type="text" name="frete" id="frete" class="form-control" [(ngModel)]="cep" aria-describedby="helpId"/>
+                  <button (click)="calculateShipping()" class="btn btn-primary mt-2">Calcular Frete</button>
+              </div>
+              <div *ngIf="shippingOptions.length > 0">
+                  <div class="form-check" *ngFor="let option of shippingOptions">
+                      <input class="form-check-input" type="radio" name="shipping" [value]="option" (change)="shippingCost = option.cost">
+                      <label class="form-check-label">{{ option.description }} - {{ option.cost | currency }}</label>
+                  </div>
+              </div>
+          </article>
             <article class="col-5 p-4 border rounded-4 justify-content-center align-items-center g-2 shadow">
                 <h2 class="text-center mb-4">Resumo do pedido</h2>
                 <p id="subtotal" class="fs-5">Sub Total: R$ {{ calculateSubtotal() | currency }}</p>

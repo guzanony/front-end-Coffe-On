@@ -1,5 +1,3 @@
-
-
 <app-default-login-layout
   title="Crie sua conta"
   primaryBtnText="Cadastrar"
@@ -8,7 +6,6 @@
   (navigate)="navigate()"
   [disabledPrimaryBtn]="!signUpForm.valid"
 >
-  <main>
     <form [formGroup]="signUpForm">
       <app-primary-input
         formControlName="nomeCompleto"
@@ -193,8 +190,6 @@
       </div>
       <button type="button" (click)="addEndereco()">Adicionar Endereço</button>
     </form>
-  </main>
-
 </app-default-login-layout>
 
 

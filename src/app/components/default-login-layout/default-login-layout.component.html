@@ -1,17 +1,8 @@
 <main>
-
-
-
   <section class="form-section">
-
-    <header class="header">
-      <h2>{{title}}</h2>
-      <p class="sub-title">Estamos felizes em vê-lo de volta</p>
-    </header>
-
-
-    <ng-content></ng-content>
-    <div class="btn-wrapper">
+     <h2>{{ title }}</h2>
+     <ng-content></ng-content>
+     <div class="btn-wrapper">
       <button aria-label="Submit" class="btn-primary" (click)="submit()">{{primaryBtnText}}</button>
       <div class="divider">
         <div>ou</div>
@@ -20,5 +11,3 @@
     </div>
   </section>
 </main>
-
-
