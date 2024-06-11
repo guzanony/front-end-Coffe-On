@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Address } from '../../models/singnup-form.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AddressService {
 
   private readonly _http = inject(HttpClient);
 
-  public getUserAddresses(clienteId: number): Observable<any> {
-    return this._http.get(`${this.baseUrl}/${clienteId}/enderecos`);
+  public getUserAddresses(clienteId: number): Observable<Address[]> {
+    return this._http.get<Address[]>(`${this.baseUrl}/${clienteId}/enderecos`);
   }
 }

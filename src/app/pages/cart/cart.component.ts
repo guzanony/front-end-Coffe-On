@@ -25,8 +25,8 @@ export class CartComponent implements OnInit {
   public shippingCost: number = 0;
   public shippingOptions: ShippingOption[] = [];
   public cep: string = '';
-  public addresses = new Array<Address>();
-  public selectedAddress: any;
+  public addresses: Address[] = [];
+  public selectedAddress: Address | undefined;
 
   private readonly _cartService = inject(CartService);
   private readonly _productService = inject(ProductService);
@@ -57,11 +57,16 @@ export class CartComponent implements OnInit {
   private loadAddresses(): void {
     const clienteId = parseInt(sessionStorage.getItem('clienteId')!, 10);
     if (clienteId) {
-      this._addressService.getUserAddresses(clienteId).subscribe(data => {
-        console.log(data)
-        this.addresses = data;
-        if (this.addresses.length > 0) {
-          this.selectedAddress = this.addresses[0];
+      this._addressService.getUserAddresses(clienteId).subscribe({
+        next: (data) => {
+          console.log('Endereço recebido:', data);
+          this.addresses = data;
+          if (this.addresses.length > 0) {
+            this.selectedAddress = this.addresses[0];
+          }
+        },
+        error: (error) => {
+          console.error('Error ao pegar endereço:', error);
         }
       });
     }
@@ -120,7 +125,7 @@ export class CartComponent implements OnInit {
     }
   }
 
-  public selectAddress(address: any): void {
+  public selectAddress(address: Address): void {
     this.selectedAddress = address;
   }
 

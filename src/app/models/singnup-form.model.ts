@@ -33,7 +33,7 @@ id: number;
 cep: number;
 logradouro: string;
 numero: number;
-complemento?: string;
+complemento: string;
 bairro: string;
 cidade: string;
 uf: string;

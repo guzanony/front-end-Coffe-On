@@ -22,13 +22,14 @@ export class LoginComponent {
     this.loginForm = new FormGroup<LoginForm>({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)])
-    })
+    });
   }
 
   public submit(): void {
     if (this.loginForm.valid) {
       this._loginService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-        next: () => {
+        next: (resp) => {
+          console.log(resp)
           this._toastService.success('Login feito com sucesso');
           this._router.navigate(['/user']);
         },
