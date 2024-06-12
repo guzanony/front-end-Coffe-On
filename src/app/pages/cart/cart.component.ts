@@ -132,9 +132,9 @@ export class CartComponent implements OnInit {
 
   public navigateToCheckout(): void {
     if (sessionStorage.getItem('auth-token')) {
-      this._router.navigate(['/pagamentos']);
+      this._router.navigate(['/payment']);
     } else {
-      sessionStorage.setItem('redirectAfterLogin', '/pagamentos');
+      sessionStorage.setItem('redirectAfterLogin', '/payment');
       this._router.navigate(['/login']);
     }
   }

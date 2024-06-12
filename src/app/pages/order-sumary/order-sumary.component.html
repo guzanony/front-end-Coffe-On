@@ -1,0 +1,43 @@
+<h2 class="summary-title">Resumo do Pedido</h2>
+
+<div class="order-summary">
+  <h3>Produtos</h3>
+  <table class="order-table">
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Preço Unitário</th>
+        <th>Quantidade</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cart.items">
+        <td>{{ item.product.nome }}</td>
+        <td>R$ {{ item.product.preco.toFixed(2) }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>R$ {{ (item.product.preco * item.quantity).toFixed(2) }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Endereço de Entrega</h3>
+  <div *ngIf="selectedAddress" class="address-details">
+    <p>{{ selectedAddress.logradouro }}, {{ selectedAddress.numero }}</p>
+    <p>{{ selectedAddress.bairro }}, {{ selectedAddress.cidade }} - {{ selectedAddress.uf }}</p>
+    <p>CEP: {{ selectedAddress.cep }}</p>
+  </div>
+
+  <h3>Forma de Pagamento</h3>
+  <p>{{ paymentMethod }}</p>
+
+  <h3>Resumo de Valores</h3>
+  <p>Subtotal: R$ {{ calculateTotal() - shippingCost }}</p>
+  <p>Frete: R$ {{ shippingCost }}</p>
+  <p>Total: R$ {{ calculateTotal() }}</p>
+
+  <div class="buttons">
+    <button (click)="backToPayment()" class="back-button">Voltar</button>
+    <button (click)="completePurchase()" class="complete-button">Concluir Compra</button>
+  </div>
+</div>

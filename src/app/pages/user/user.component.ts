@@ -121,13 +121,4 @@ private initializeCart(): void {
   public carrinho(): void {
     this._router.navigate(['/cart']);
   }
-
-  public navigateToCheckout(): void {
-    if (this.isAuthenticated()) {
-      this._router.navigate(['/checkout']);
-    } else {
-      sessionStorage.setItem('redirectAfterLogin', '/checkout');
-      this._router.navigate(['/login']);
-    }
-  }
 }
