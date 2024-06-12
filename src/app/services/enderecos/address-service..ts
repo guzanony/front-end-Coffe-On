@@ -15,4 +15,8 @@ export class AddressService {
   public getUserAddresses(clienteId: number): Observable<Address[]> {
     return this._http.get<Address[]>(`${this.baseUrl}/${clienteId}/enderecos`);
   }
+
+  public addAddress(clienteId: number, address: Address): Observable<Address> {
+    return this._http.post<Address>(`${this.baseUrl}/${clienteId}/enderecos`, address);
+  }
 }

@@ -6,6 +6,8 @@ import { ProductService } from '../../services/product/product-service.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AddressService } from '../../services/enderecos/address-service.';
+import { AddAddressFormComponent } from '../../components/add-address-form/add-address-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 interface ShippingOption {
   description: string;
@@ -27,11 +29,23 @@ export class CartComponent implements OnInit {
   public cep: string = '';
   public addresses: Address[] = [];
   public selectedAddress: Address | undefined;
+  public showAddAddressForm = false;
+  public newAddress: Address = {
+    id: 0,
+    logradouro: '',
+    numero: '',
+    complemento: '',
+    bairro: '',
+    cidade: '',
+    uf: '',
+    cep: ''
+  };
 
   private readonly _cartService = inject(CartService);
   private readonly _productService = inject(ProductService);
   private readonly _router = inject(Router);
   private readonly _addressService = inject(AddressService);
+  private dialog: MatDialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.loadCart();
@@ -129,11 +143,16 @@ export class CartComponent implements OnInit {
     this.selectedAddress = address;
   }
 
-  public navigateToAddressEdit(): void {
-    this._router.navigate(['/edit-address']);
-  }
-
   public navigateToAddressSelection(): void {
     this._router.navigate(['/select-address']);
+  }
+
+  public openAddAddressForm(): void {
+    const dialogRef = this.dialog.open(AddAddressFormComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.addresses.push(result);
+      }
+    });
   }
 }

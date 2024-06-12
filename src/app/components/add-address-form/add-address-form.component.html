@@ -1,0 +1,32 @@
+<h2>Adicionar Novo Endereço</h2>
+<form (ngSubmit)="addAddress()">
+  <mat-form-field appearance="fill">
+    <mat-label>CEP</mat-label>
+    <input matInput [(ngModel)]="newAddress.cep" name="cep" required (blur)="fetchAddressByCep()">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Logradouro</mat-label>
+    <input matInput [(ngModel)]="newAddress.logradouro" name="logradouro" required>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Número</mat-label>
+    <input matInput [(ngModel)]="newAddress.numero" name="numero" required>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Complemento</mat-label>
+    <input matInput [(ngModel)]="newAddress.complemento" name="complemento">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Bairro</mat-label>
+    <input matInput [(ngModel)]="newAddress.bairro" name="bairro" required>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Cidade</mat-label>
+    <input matInput [(ngModel)]="newAddress.cidade" name="cidade" required>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Uf</mat-label>
+    <input matInput [(ngModel)]="newAddress.uf" name="estado" required>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Adicionar Endereço</button>
+</form>

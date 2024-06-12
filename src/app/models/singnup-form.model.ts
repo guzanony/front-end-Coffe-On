@@ -30,9 +30,9 @@ export interface EnderecoEntregaFormModel {
 
 export interface Address {
 id: number;
-cep: number;
+cep: string;
 logradouro: string;
-numero: number;
+numero: string;
 complemento: string;
 bairro: string;
 cidade: string;
