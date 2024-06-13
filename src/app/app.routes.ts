@@ -8,6 +8,8 @@ import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { OrderSummaryComponent } from './pages/order-sumary/order-sumary.component';
+import { OrdersListComponent } from './pages/order-list/order-list.component';
+import { OrderDetailsComponent } from './pages/order-details/order-details.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +35,14 @@ export const routes: Routes = [
   {
     path: 'order-sumary',
     component: OrderSummaryComponent
+  },
+  {
+    path: 'order-details/:id',
+    component: OrderDetailsComponent
+  },
+  {
+    path: 'orders-list',
+    component: OrdersListComponent
   },
   {
     path: 'user',

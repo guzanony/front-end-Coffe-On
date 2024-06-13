@@ -49,7 +49,9 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCart();
-    this.loadAddresses();
+    if (this.isAuthenticated()) {
+      this.loadAddresses();
+    }
   }
 
   private loadCart(): void {
@@ -84,6 +86,10 @@ export class CartComponent implements OnInit {
         }
       });
     }
+  }
+
+  private isAuthenticated(): boolean {
+    return !!sessionStorage.getItem('auth-token');
   }
 
   public updateQuantity(itemId: number, quantity: number): void {
@@ -131,7 +137,7 @@ export class CartComponent implements OnInit {
   }
 
   public navigateToCheckout(): void {
-    if (sessionStorage.getItem('auth-token')) {
+    if (this.isAuthenticated()) {
       this._router.navigate(['/payment']);
     } else {
       sessionStorage.setItem('redirectAfterLogin', '/payment');
@@ -154,5 +160,14 @@ export class CartComponent implements OnInit {
         this.addresses.push(result);
       }
     });
+  }
+
+  public logout(): void {
+    sessionStorage.removeItem('auth-token');
+    sessionStorage.removeItem('clienteId');
+    sessionStorage.removeItem('cartId');
+    sessionStorage.removeItem('redirectAfterLogin');
+    this.addresses = [];
+    this._router.navigate(['/login']);
   }
 }

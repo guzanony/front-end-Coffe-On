@@ -11,8 +11,15 @@ export class OrderService {
 
   private readonly _http = inject(HttpClient);
 
-  createOrder(orderData: any): Observable<any> {
-    const token = sessionStorage.getItem('auth-token');
+  public createOrder(orderData: any): Observable<any> {
     return this._http.post(`${this.API_URL}`, orderData,);
+  }
+
+ public getOrdersByClienteId(clienteId: number): Observable<any> {
+    return this._http.get<any>(`${this.API_URL}/cliente/${clienteId}`);
+  }
+
+  public getOrder(orderId: number): Observable<any> {
+    return this._http.get<any>(`${this.API_URL}/${orderId}/detalhes`);
   }
 }

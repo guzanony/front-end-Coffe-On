@@ -121,4 +121,8 @@ private initializeCart(): void {
   public carrinho(): void {
     this._router.navigate(['/cart']);
   }
+
+  public navigateToOrders(): void {
+    this._router.navigate(['/orders-list']);
+  }
 }

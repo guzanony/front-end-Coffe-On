@@ -1,0 +1,37 @@
+<div *ngIf="order" class="order-details">
+  <h2>Detalhes do Pedido #{{ order.numeroPedido }}</h2>
+
+  <h3>Produtos</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Quantidade</th>
+        <th>Preço Unitário</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of order.produtos">
+        <td>{{ item.nome }}</td>
+        <td>{{ item.quantidade }}</td>
+        <td>{{ item.preco | currency: 'BRL' }}</td>
+        <td>{{ calculateTotalPerProduct(item) | currency: 'BRL' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Resumo do Pedido</h3>
+  <p><strong>Valor do Frete:</strong> {{ order.valorFrete | currency: 'BRL' }}</p>
+  <p><strong>Valor Total:</strong> {{ order.valorTotal | currency: 'BRL' }}</p>
+
+  <h3>Endereço de Entrega</h3>
+  <p>{{ order.enderecoEntrega.logradouro }}, {{ order.enderecoEntrega.numero }}</p>
+  <p>{{ order.enderecoEntrega.bairro }}, {{ order.enderecoEntrega.cidade }} - {{ order.enderecoEntrega.uf }}</p>
+  <p>{{ order.enderecoEntrega.cep }}</p>
+
+  <h3>Forma de Pagamento</h3>
+  <p>{{ order.formaPagamento }}</p>
+
+  <button (click)="backToOrders()">Voltar aos Pedidos</button>
+</div>

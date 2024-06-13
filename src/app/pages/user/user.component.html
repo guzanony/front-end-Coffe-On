@@ -69,7 +69,7 @@
               *ngIf="isAuthenticated()"
               class="d-flex w-25 justify-content-between"
             >
-              <span>Bem-vindo, {{ name }}</span>
+              <span style="margin-right: 50px;">Bem-vindo, {{ name }}</span>
               <a
                 (click)="editProfile()"
                 class="icon-link icon-link-hover d-flex align-items-center"
@@ -77,10 +77,15 @@
               >
               <a
                 (click)="logout()"
-                class="icon-link icon-link-hover d-flex align-items-center"
+                class="icon-link icon-link-hover d-flex align-items-center" style="margin-right: 20px;"
               >
                 Logout
                 <i class="bi bi-box-arrow-right"></i>
+              </a>
+              <a
+                class="icon-link icon-link-hover d-flex align-items-center" style="margin-left: 10px;" (click)="navigateToOrders()"
+              >
+                Meus Pedidos
               </a>
             </div>
             <a (click)="carrinho()" class="position-relative">

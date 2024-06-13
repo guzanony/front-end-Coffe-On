@@ -72,7 +72,10 @@ export class OrderSummaryComponent implements OnInit {
 
     const orderData = {
       clienteId,
-      produtos: this.cart.items.map((item: any) => item.product.id),
+      produtos: this.cart.items.map((item: any) => ({
+        produtoId: item.product.id,
+        quantidade: item.quantity
+      })),
       enderecoEntrega: {
         cep: this.selectedAddress?.cep,
         logradouro: this.selectedAddress?.logradouro,

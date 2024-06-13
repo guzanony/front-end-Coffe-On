@@ -1,0 +1,23 @@
+<div class="orders-list">
+  <h2>Meus Pedidos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Número</th>
+        <th>Data</th>
+        <th>Valor Total</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order.numeroPedido }}</td>
+        <td>{{ order.dataCriacao | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ order.valorTotal | currency: 'BRL' }}</td>
+        <td>{{ order.status }}</td>
+        <td><button (click)="viewOrderDetails(order.id)">Ver Detalhes</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
