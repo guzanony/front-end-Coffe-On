@@ -7,9 +7,10 @@ import { LoginResponse } from '../../types/login-response.type';
   providedIn: 'root'
 })
 export class SingUpService {
-  public urlApi: string = 'http://localhost:8080/auth';
 
-  private readonly _httpClient = inject(HttpClient);
+  private readonly baseUrlApi: string = 'http://localhost:8080/auth';
+
+  private readonly _http = inject(HttpClient);
 
   public signUp(signUpData: Partial<{
     nomeCompleto: string | null | undefined;
@@ -33,9 +34,9 @@ export class SingUpService {
     cidade: string | null | undefined;
     uf: string | null | undefined;
   }>) {
-    return this._httpClient.post<LoginResponse>(this.urlApi + '/registerCliente', signUpData).pipe(
+    return this._http.post<LoginResponse>(this.baseUrlApi + '/registerCliente', signUpData).pipe(
       tap((value) => {
-        console.log('URL da API:', this.urlApi);
+        console.log('URL da API:', this.baseUrlApi);
         console.log('Token JWT:', localStorage.getItem('auth-token'));
         sessionStorage.setItem('auth-token', value.token);
         sessionStorage.setItem('username', value.name);

@@ -8,15 +8,15 @@ import { Address } from '../../models/singnup-form.model';
 })
 export class AddressService {
 
-  private baseUrl = 'http://localhost:8080/auth';
+  private readonly baseUrlApi: string = 'http://localhost:8080/auth';
 
   private readonly _http = inject(HttpClient);
 
   public getUserAddresses(clienteId: number): Observable<Address[]> {
-    return this._http.get<Address[]>(`${this.baseUrl}/${clienteId}/enderecos`);
+    return this._http.get<Address[]>(`${this.baseUrlApi}/${clienteId}/enderecos`);
   }
 
   public addAddress(clienteId: number, address: Address): Observable<Address> {
-    return this._http.post<Address>(`${this.baseUrl}/${clienteId}/enderecos`, address);
+    return this._http.post<Address>(`${this.baseUrlApi}/${clienteId}/enderecos`, address);
   }
 }

@@ -16,8 +16,7 @@ export class UserComponent implements OnInit {
 
   public name: string | null = '';
   public cartItemCount: number = 0;
-  public idProduct: number = 1;
-  public products = new Array<Product>();
+  public products: Array<Product> = new Array<Product>();
   public cartId!: number;
 
   private readonly _router = inject(Router);
@@ -25,7 +24,7 @@ export class UserComponent implements OnInit {
   private readonly _productService = inject(ProductService);
 
   ngOnInit(): void {
-    this.name = sessionStorage.getItem('nomeCompleto');
+    this.getNameForExhibition();
     this.getProducts();
     this.initializeCart();
   }
@@ -42,20 +41,19 @@ export class UserComponent implements OnInit {
     });
   }
 
-  private getUserName(): string {
+  private getNameForExhibition(): void {
+    this.name = sessionStorage.getItem('nomeCompleto');
+  }
+
+  private getNameForCart(): string {
     return sessionStorage.getItem('nomeCompleto') || 'defaultUserId';
   }
 
-  public navigate(): void {
-    this._router.navigate(['/login']);
-  }
-
   public isAuthenticated(): boolean {
-    return !!sessionStorage.getItem('auth-token');
+    return !!sessionStorage.getItem('nomeCompleto');
   }
 
   public logout(): void {
-    sessionStorage.removeItem('auth-token');
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('nomeCompleto');
     sessionStorage.removeItem('cartId');
@@ -75,44 +73,43 @@ export class UserComponent implements OnInit {
   }
 
   private updateCartCount(): void {
-    this._cartService.getCart(this.cartId).subscribe({
-      next: (cart) => {
-        this.cartItemCount = cart.items.reduce((sum: any, item: any) => sum + item.quantity, 0);
-      },
-      error: (error) => console.error('Error updating cart count:', error)
-    });
+    this._cartService.getCart(this.cartId).subscribe((cart) => {
+      this.cartItemCount - cart.items.reduce((sum: any, item: any) => sum + item.quantity, 0);
+    }), () => {
+      console.error('Erro ao carregar o carrinho')
+    }
   }
 
   public addToCart(product: Product): void {
-    const cartItem = { productId: product.id, userName: this.getUserName(), quantity: 1 };
+    const cartItem = { productId: product.id, userName: this.getNameForCart(), quantity: 1 };
     console.log('Adding to cart:', cartItem);
     this._cartService.addItemToCart(this.cartId, product.id, 1).subscribe({
-        next: (resp) => {
-            console.log('Product added to cart successfully', resp);
-            this.updateCartCount();
-        },
-        error: (error) => {
-            console.error('Error adding product to cart:', error);
-        }
-    });
-}
-
-private initializeCart(): void {
-  const cartId = sessionStorage.getItem('cartId');
-  if (cartId) {
-    this.cartId = parseInt(cartId, 10);
-    this.updateCartCount();
-  } else {
-    this._cartService.createCart().subscribe({
-      next: (cart) => {
-        this.cartId = cart.id;
-        sessionStorage.setItem('cartId', cart.id.toString());
+      next: (resp) => {
+        console.log('Product added to cart successfully', resp);
         this.updateCartCount();
       },
-      error: (error) => console.error('Error creating cart:', error)
+      error: (error) => {
+        console.error('Error adding product to cart:', error);
+      }
     });
   }
-}
+
+  private initializeCart(): void {
+    const cartId = sessionStorage.getItem('cartId');
+    if (cartId) {
+      this.cartId = parseInt(cartId, 10);
+      this.updateCartCount();
+    } else {
+      this._cartService.createCart().subscribe({
+        next: (cart) => {
+          this.cartId = cart.id;
+          sessionStorage.setItem('cartId', cart.id.toString());
+          this.updateCartCount();
+        },
+        error: (error) => console.error('Error creating cart:', error)
+      });
+    }
+  }
 
   public editProfile(): void {
     this._router.navigate(['/edit-user']);

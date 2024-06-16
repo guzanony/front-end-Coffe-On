@@ -7,16 +7,16 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
-  private readonly API_URL_PRODUCT = 'http://localhost:8080/products';
+  private readonly baseUrlApi: string = 'http://localhost:8080/products';
 
   private readonly _http = inject(HttpClient);
 
   public getProducts(): Observable<any> {
-    return this._http.get(`${this.API_URL_PRODUCT}`);
+    return this._http.get(`${this.baseUrlApi}`);
   }
 
   public getProductImageUrl(id: number): Observable<Blob> {
-    return this._http.get(`${this.API_URL_PRODUCT}/image/${id}`, { responseType: 'blob' });
+    return this._http.get(`${this.baseUrlApi}/image/${id}`, { responseType: 'blob' });
   }
 
 }

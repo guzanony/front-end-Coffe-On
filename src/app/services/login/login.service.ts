@@ -7,14 +7,14 @@ import { LoginResponse } from '../../types/login-response.type';
   providedIn: 'root'
 })
 export class LoginService {
-  public urlAPi: string = 'http://localhost:8080/auth';
 
-  private readonly _httpClient = inject(HttpClient);
+  private readonly baseUrlApi: string = 'http://localhost:8080/auth';
+
+  private readonly _http = inject(HttpClient);
 
   public login(email: string | null | undefined, password: string | null | undefined): Observable<LoginResponse> {
-    return this._httpClient.post<LoginResponse>(this.urlAPi + '/loginCliente', { email, password }).pipe(
+    return this._http.post<LoginResponse>(this.baseUrlApi + '/loginCliente', { email, password }).pipe(
       tap((value) => {
-        sessionStorage.setItem('auth-token', value.token);
         sessionStorage.setItem('username', value.name);
         sessionStorage.setItem('nomeCompleto', value.nomeCompleto);
         sessionStorage.setItem('clienteId', value.clienteId.toString());

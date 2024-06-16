@@ -6,10 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ViaCepService {
-  private readonly API_URL: string = 'https://viacep.com.br/ws';
+
+  private readonly baseUrlApi: string = 'https://viacep.com.br/ws';
+
   private readonly _http = inject(HttpClient);
 
-  getCep(cep: string): Observable<any> {
-    return this._http.get(`${this.API_URL}/${cep}/json/`);
+  public getCep(cep: string): Observable<any> {
+    return this._http.get(`${this.baseUrlApi}/${cep}/json/`);
   }
 }
