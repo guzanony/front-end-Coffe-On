@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { OrderService } from '../../services/order/order.service';
 import { ToastrService } from 'ngx-toastr';
+import { OrderService } from '../../services/order/order.service';
 
 @Component({
   selector: 'app-orders-list',

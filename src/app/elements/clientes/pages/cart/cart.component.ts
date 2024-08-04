@@ -1,13 +1,13 @@
 import { Address } from './../../models/singnup-form.model';
 import { Component, OnInit, inject } from '@angular/core';
-import { CartService } from '../../services/carrinho/cart.service';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '../../services/product/product-service.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AddressService } from '../../services/enderecos/address-service.';
-import { AddAddressFormComponent } from '../../components/add-address-form/add-address-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CartService } from '../../services/carrinho/carrinho.service';
+import { ProductService } from '../../services/produtos/product.service';
+import { AddressService } from '../../services/enderecos/address.service';
+import { AddAddressFormComponent } from '../../../../components/add-address-form/add-address-form.component';
 
 interface ShippingOption {
   description: string;

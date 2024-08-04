@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { Address } from '../../models/singnup-form.model';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { AddressService } from '../../services/enderecos/address-service.';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ViaCepService } from '../../services/cep-api/via-cep.service';
+import { Address } from '../../elements/clientes/models/singnup-form.model';
+import { AddressService } from '../../elements/clientes/services/enderecos/address.service';
+import { ViaCepService } from '../../elements/clientes/services/cep-api/via-cep.service';
 
 @Component({
   selector: 'app-add-address-form',

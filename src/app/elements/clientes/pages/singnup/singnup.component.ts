@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { EnderecoEntregaFormModel, SignUpFormModel } from '../../models/singnup-form.model';
-import { DefaultLoginLayoutComponent } from '../../components/default-login-layout/default-login-layout.component';
-import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
 import { CommonModule } from '@angular/common';
-import { SingUpService } from '../../services/singUp/singUp.service';
+import { DefaultLoginLayoutComponent } from '../../../../components/default-login-layout/default-login-layout.component';
+import { PrimaryInputComponent } from '../../../../components/primary-input/primary-input.component';
+import { SingUpService } from '../../services/singup/sing-up.service';
 
 @Component({
   selector: 'app-login',

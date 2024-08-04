@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../services/user/user-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { DefaultLoginLayoutComponent } from '../../components/default-login-layout/default-login-layout.component';
-import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
 import { CommonModule } from '@angular/common';
 import { EditProfileFormModel, EnderecoEntregaFormModel } from '../../models/singnup-form.model';
+import { DefaultLoginLayoutComponent } from '../../../../components/default-login-layout/default-login-layout.component';
+import { PrimaryInputComponent } from '../../../../components/primary-input/primary-input.component';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-edit-user',

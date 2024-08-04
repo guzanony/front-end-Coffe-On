@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartService } from '../../services/carrinho/cart.service';
 import { Product } from '../../models/product.model';
-import { ProductService } from '../../services/product/product-service.service';
+import { CartService } from '../../services/carrinho/carrinho.service';
+import { ProductService } from '../../services/produtos/product.service';
 
 @Component({
   selector: 'app-user',

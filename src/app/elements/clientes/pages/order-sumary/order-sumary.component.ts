@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Address } from '../../models/singnup-form.model';
 import { Router } from '@angular/router';
-import { CartService } from '../../services/carrinho/cart.service';
-import { AddressService } from '../../services/enderecos/address-service.';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from '../../services/carrinho/carrinho.service';
+import { AddressService } from '../../services/enderecos/address.service';
 import { OrderService } from '../../services/order/order.service';
 
 @Component({
