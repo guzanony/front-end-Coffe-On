@@ -11,6 +11,7 @@ import { OrdersListComponent } from './elements/clientes/pages/order-list/order-
 import { OrderDetailsComponent } from './elements/clientes/pages/order-details/order-details.component';
 import { AuthGuardService } from './elements/clientes/services/auth-guard/auth-guard.service';
 import { LoginUserComponent } from './elements/usuarios/pages/login/login.component';
+import { ChoicesComponent } from './elements/usuarios/pages/choices/choices.component';
 
 export const routes: Routes = [
   {
@@ -61,5 +62,9 @@ export const routes: Routes = [
   {
     path: 'loginUser',
     component: LoginUserComponent,
+  },
+  {
+    path: 'choices',
+    component: ChoicesComponent,
   }
 ];
