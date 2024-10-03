@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LoginUserResponse } from '../../clientes/types/login-response.type';
-import { LoginUserModel } from '../model/login-user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class LoginUserService {
 
   constructor(private readonly _httpClient: HttpClient) { }
 
-  public postLoginUser(username: string | null | undefined, password: string | null | undefined): Observable<LoginUserModel> {
-    return this._httpClient.post<LoginUserModel>(this.urlApi, { username, password });
+  public postLoginUser(username: string | null | undefined, password: string | null | undefined): Observable<LoginUserResponse> {
+    return this._httpClient.post<LoginUserResponse>(this.urlApi, { username, password });
   }
 }
