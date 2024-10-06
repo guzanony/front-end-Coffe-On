@@ -61,11 +61,11 @@ export class UserComponent implements OnInit {
   }
 
   public navigateLogin(): void {
-    //this._router.navigate(['/login']);
+    this._router.navigate(['/login']);
   }
 
   public navigateSingUp(): void {
-    //this._router.navigate(['/singnup']);
+    this._router.navigate(['/singnup']);
   }
 
   public navigateProductDetail(id: number): void {
@@ -74,7 +74,8 @@ export class UserComponent implements OnInit {
 
   private updateCartCount(): void {
     this._cartService.getCart(this.cartId).subscribe((cart) => {
-      this.cartItemCount - cart.items.reduce((sum: any, item: any) => sum + item.quantity, 0);
+      console.log(cart)
+      this.cartItemCount = cart.items.reduce((sum: any, item: any) => sum + item.quantity, 0);
     }), () => {
       console.error('Erro ao carregar o carrinho')
     }
@@ -116,7 +117,7 @@ export class UserComponent implements OnInit {
   }
 
   public carrinho(): void {
-    //this._router.navigate(['/cart']);
+    this._router.navigate(['/cart']);
   }
 
   public navigateToOrders(): void {

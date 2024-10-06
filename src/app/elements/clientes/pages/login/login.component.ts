@@ -31,7 +31,7 @@ export class LoginComponent {
         next: (resp) => {
           console.log(resp)
           this._toastService.success('Login feito com sucesso');
-          this._router.navigate(['/user']);
+          this._router.navigate(['/customer']);
         },
         error: () => this._toastService.error('Erro inesperado! Tente novamente mais tarde')
       });

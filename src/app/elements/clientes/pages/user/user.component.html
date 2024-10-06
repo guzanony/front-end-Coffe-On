@@ -42,63 +42,66 @@
     <main style="min-width: 372px">
       <div class="main-container">
         <nav class="navbar bg-body-tertiary">
-          <div class="container-fluid justify-content-between">
-            <a class="navbar-brand" href="#"
-              >Kilo Byte <i class="bi text-warning"></i
-            ></a>
-            <div
-              *ngIf="!isAuthenticated()"
-              class="d-flex w-25 justify-content-between"
-            >
-              <a
-                (click)="navigateLogin()"
-                class="icon-link icon-link-hover d-flex align-items-center"
-              >
-                Login
-                <i class="bi bi-arrow-right-circle-fill"></i>
+          <div class="container-fluid">
+              <a class="navbar-brand" href="#">Kilo Byte</a>
+
+              <div *ngIf="!isAuthenticated()" class="d-flex">
+                  <a
+                      (click)="navigateLogin()"
+                      class="icon-link icon-link-hover d-flex align-items-center me-3"
+                      style="cursor: pointer;"
+                  >
+                      Login
+                      <i class="bi bi-arrow-right-circle-fill"></i>
+                  </a>
+                  <a
+                      (click)="navigateSingUp()"
+                      class="icon-link icon-link-hover d-flex align-items-center"
+                      style="cursor: pointer;"
+                  >
+                      Cadastre-se
+                      <i class="bi bi-arrow-right-circle-fill"></i>
+                  </a>
+              </div>
+
+              <div *ngIf="isAuthenticated()" class="d-flex align-items-center">
+                  <span class="me-4">Bem-vindo, {{ name }}</span>
+                  <a
+                      (click)="editProfile()"
+                      class="icon-link icon-link-hover d-flex align-items-center me-4"
+                      style="cursor: pointer;"
+                  >
+                      Editar Perfil
+                  </a>
+                  <a
+                      (click)="logout()"
+                      class="icon-link icon-link-hover d-flex align-items-center me-4"
+                      style="cursor: pointer;"
+                  >
+                      Logout
+                      <i class="bi bi-box-arrow-right ms-1"></i>
+                  </a>
+                  <a
+                      class="icon-link icon-link-hover d-flex align-items-center me-4"
+                      style="cursor: pointer;"
+                      (click)="navigateToOrders()"
+                  >
+                      Meus Pedidos
+                  </a>
+              </div>
+
+              <a (click)="carrinho()" class="position-relative" style="cursor: pointer;">
+                  <i class="bi bi-cart4 text-secondary h4"></i>
+                  <span
+                      id="cart-badge"
+                      class="badge bg-warning rounded-circle position-absolute top-0 start-100 translate-middle"
+                  >
+                      {{ cartItemCount }}
+                  </span>
               </a>
-              <a
-                (click)="navigateSingUp()"
-                class="icon-link icon-link-hover d-flex align-items-center"
-              >
-                Cadastre-se
-                <i class="bi bi-arrow-right-circle-fill"></i>
-              </a>
-            </div>
-            <div
-              *ngIf="isAuthenticated()"
-              class="d-flex w-25 justify-content-between"
-            >
-              <span style="margin-right: 50px;">Bem-vindo, {{ name }}</span>
-              <a
-                (click)="editProfile()"
-                class="icon-link icon-link-hover d-flex align-items-center"
-                >Editar Perfil</a
-              >
-              <a
-                (click)="logout()"
-                class="icon-link icon-link-hover d-flex align-items-center" style="margin-right: 20px;"
-              >
-                Logout
-                <i class="bi bi-box-arrow-right"></i>
-              </a>
-              <a
-                class="icon-link icon-link-hover d-flex align-items-center" style="margin-left: 10px;" (click)="navigateToOrders()"
-              >
-                Meus Pedidos
-              </a>
-            </div>
-            <a (click)="carrinho()" class="position-relative">
-              <i class="bi bi-cart4 text-secondary h4"></i>
-              <span
-                id="cart-badge"
-                class="badge bg-warning rounded-circle position-absolute top-0 start-100 translate-middle"
-              >
-                {{ cartItemCount }}
-              </span>
-            </a>
           </div>
-        </nav>
+      </nav>
+
         <main class="mt-4">
           <div class="container">
             <hr class="mt-3" />
@@ -130,11 +133,11 @@
                         class="btn btn-outline-dark"
                         >Detalhes</a
                       >
-                      <!-- <a
+                      <a
                         (click)="addToCart(product)"
                         class="btn btn-primary add-to-cart"
                         >Carrinho</a
-                      > -->
+                      >
                     </div>
                   </div>
                 </div>
