@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { EditProfileFormModel } from '../../models/singnup-form.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ export class UserService {
 
   private readonly _http = inject(HttpClient);
 
-  public getUser(): Observable<any> {
-    return this._http.get(`${this.baseUrl}/me`);
+  public getUser(name: string | null): Observable<EditProfileFormModel> {
+    return this._http.get<EditProfileFormModel>(`${this.baseUrl}/me?nomeCompleto=${name}`);
   }
 
-  public updateUser(data: any): Observable<any> {
-    return this._http.put(`${this.baseUrl}/me`, data);
+  updateUser(nomeCompleto: string | null, profile: EditProfileFormModel): Observable<void> {
+    return this._http.put<void>(`${this.baseUrl}/me?nomeCompleto=${nomeCompleto}`, profile);
   }
 }

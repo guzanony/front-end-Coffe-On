@@ -16,8 +16,9 @@ import { UserService } from '../../services/user/user.service';
   styleUrls: ['./edit-user.component.scss']
 })
 export class EditUserComponent implements OnInit {
-  public editProfileForm!: FormGroup<EditProfileFormModel>;
+  public editProfileForm!: FormGroup;
   public enderecos!: FormArray<FormGroup<EnderecoEntregaFormModel>>;
+  public name: string | null = '';
 
   private readonly _router = inject(Router);
   private readonly _userService = inject(UserService);
@@ -25,38 +26,45 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.enderecos = new FormArray<FormGroup<EnderecoEntregaFormModel>>([]);
-    this.editProfileForm = new FormGroup<EditProfileFormModel>({
-      nomeCompleto: new FormControl<string | null>('', [Validators.required]),
-      dataNascimento: new FormControl<string | null>('', [Validators.required]),
-      genero: new FormControl<string | null>('', [Validators.required]),
+    this.editProfileForm = new FormGroup({
+      nomeCompleto: new FormControl<string | null>('', Validators.required),
+      dataNascimento: new FormControl<string | null>('', Validators.required),
+      genero: new FormControl<string | null>('', Validators.required),
       email: new FormControl<string | null>('', [Validators.required, Validators.email]),
-      cpf: new FormControl<string | null>('', [Validators.required]),
-      cepFaturamento: new FormControl<string | null>('', [Validators.required]),
-      logradouroFaturamento: new FormControl<string | null>('', [Validators.required]),
-      numeroFaturamento: new FormControl<string | null>('', [Validators.required]),
+      cpf: new FormControl<string | null>('', Validators.required),
+      cepFaturamento: new FormControl<string | null>('', Validators.required),
+      logradouroFaturamento: new FormControl<string | null>('', Validators.required),
+      numeroFaturamento: new FormControl<string | null>('', Validators.required),
       complementoFaturamento: new FormControl<string | null>(''),
-      bairroFaturamento: new FormControl<string | null>('', [Validators.required]),
-      cidadeFaturamento: new FormControl<string | null>('', [Validators.required]),
-      ufFaturamento: new FormControl<string | null>('', [Validators.required]),
-      password: new FormControl<string | null>('', [Validators.required]),
-      enderecos: this.enderecos
+      bairroFaturamento: new FormControl<string | null>('', Validators.required),
+      cidadeFaturamento: new FormControl<string | null>('', Validators.required),
+      ufFaturamento: new FormControl<string | null>('', Validators.required),
+      password: new FormControl<string | null>('', Validators.required),
+      enderecos: this.enderecos as unknown as FormArray
     });
 
-    this._userService.getUser().subscribe(profile => {
-      this.editProfileForm.patchValue(profile);
-      profile.enderecosEntrega.forEach((endereco: any) => {
-        this.enderecos.push(new FormGroup<EnderecoEntregaFormModel>({
-          cep: new FormControl(endereco.cep, [Validators.required]),
-          logradouro: new FormControl(endereco.logradouro, [Validators.required]),
-          numero: new FormControl(endereco.numero, [Validators.required]),
-          complemento: new FormControl(endereco.complemento),
-          bairro: new FormControl(endereco.bairro, [Validators.required]),
-          cidade: new FormControl(endereco.cidade, [Validators.required]),
-          uf: new FormControl(endereco.uf, [Validators.required]),
-          isDefault: new FormControl<boolean | null>(endereco.isDefault)
-        }));
+    this.name = sessionStorage.getItem('nomeCompleto');
+    if (this.name) {
+      this._userService.getUser(this.name).subscribe(profile => {
+        profile.dataNascimento = new Date(profile.dataNascimento).toLocaleDateString('pt-BR');
+        this.editProfileForm.patchValue(profile);
+        profile.enderecos.forEach(endereco => {
+          this.enderecos.push(new FormGroup({
+            cep: new FormControl(endereco.cep, Validators.required),
+            logradouro: new FormControl(endereco.logradouro, Validators.required),
+            numero: new FormControl(endereco.numero, Validators.required),
+            complemento: new FormControl(endereco.complemento),
+            bairro: new FormControl(endereco.bairro, Validators.required),
+            cidade: new FormControl(endereco.cidade, Validators.required),
+            uf: new FormControl(endereco.uf, Validators.required),
+            isDefault: new FormControl<boolean | null>(endereco.isDefault)
+          }));
+        });
       });
-    });
+    } else {
+      console.log('Nome completo não encontrado na sessionStorage');
+    }
+
   }
 
   public addEndereco(): void {
@@ -78,8 +86,8 @@ export class EditUserComponent implements OnInit {
 
   public saveProfile(): void {
     if (this.editProfileForm.valid) {
-      this._userService.updateUser(this.editProfileForm.value).subscribe({
-        next: () => this._toastService.success('Perfil atualizado com sucesso'),
+      this._userService.updateUser(this.name, this.editProfileForm.value).subscribe({
+        next: () => (this._toastService.success('Perfil atualizado com sucesso')),
         error: () => this._toastService.error('Erro ao atualizar o perfil. Tente novamente mais tarde')
       });
     } else {

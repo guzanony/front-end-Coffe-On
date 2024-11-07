@@ -29,29 +29,29 @@ export interface EnderecoEntregaFormModel {
 }
 
 export interface Address {
-id: number;
-cep: string;
-logradouro: string;
-numero: string;
-complemento: string;
-bairro: string;
-cidade: string;
-uf: string;
+id: number | null;
+cep: string | null;
+logradouro: string | null;
+numero: string | null;
+complemento: string | null;
+bairro: string | null;
+cidade: string | null;
+uf: string | null;
 }
 
 export interface EditProfileFormModel {
-  nomeCompleto: FormControl<string | null>;
-  dataNascimento: FormControl<string | null>;
-  genero: FormControl<string | null>;
-  password: FormControl<string | null>;
-  email: FormControl<string | null>;
-  cpf: FormControl<string | null>;
-  cepFaturamento: FormControl<string | null>;
-  logradouroFaturamento: FormControl<string | null>;
-  numeroFaturamento: FormControl<string | null>;
-  complementoFaturamento: FormControl<string | null>;
-  bairroFaturamento: FormControl<string | null>;
-  cidadeFaturamento: FormControl<string | null>;
-  ufFaturamento: FormControl<string | null>;
-  enderecos: FormArray<FormGroup<EnderecoEntregaFormModel>>;
+  nomeCompleto: string | null;
+  dataNascimento: string | number | Date;
+  genero: string | null;
+  password: string | null;
+  email: string | null;
+  cpf: string | null;
+  cepFaturamento: string | null;
+  logradouroFaturamento: string | null;
+  numeroFaturamento: string | null;
+  complementoFaturamento: string | null;
+  bairroFaturamento: string | null;
+  cidadeFaturamento: string | null;
+  ufFaturamento: string | null;
+  enderecos: Array<EnderecoEntregaFormModel>;
 }
