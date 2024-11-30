@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/produtos/product.service';
+import { CartService } from '../../services/carrinho/carrinho.service';
 
 @Component({
   selector: 'app-product-details',
@@ -18,6 +19,7 @@ export class ProductDetailsComponent implements OnInit {
   private readonly _router = inject(Router);
   private readonly _route = inject(ActivatedRoute);
   private readonly _productService = inject(ProductService);
+  private readonly _cartService = inject(CartService);
 
   ngOnInit(): void {
     const productId = this._route.snapshot.paramMap.get('id');
@@ -39,6 +41,17 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   public comprar(): void {
+    // const cartItem = { productId: product.id, userName: this.getNameForCart(), quantity: 1 };
+    // console.log('Adding to cart:', cartItem);
+    // this._cartService.addItemToCart(this.cartId, product.id, 1).subscribe({
+    //   next: (resp) => {
+    //     console.log('Product added to cart successfully', resp);
+    //     this.updateCartCount();
+    //   },
+    //   error: (error) => {
+    //     console.error('Error adding product to cart:', error);
+    //   }
+    // });
     this._router.navigate(['/cart']);
   }
 }

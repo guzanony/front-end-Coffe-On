@@ -75,15 +75,15 @@ export class UserComponent implements OnInit {
   private updateCartCount(): void {
     this._cartService.getCart(this.cartId).subscribe({
       next: (cart) => {
-        console.log('Cart retrieved:', cart); // Log para depuração
+        console.log('Cart retrieved:', cart);
 
         if (cart.items && cart.items.length > 0) {
           this.cartItemCount = cart.items.reduce((sum: number, item: any) => {
-            const quantity = item.quantity || 0; // Garante que quantity tenha um valor numérico
+            const quantity = item.quantity || 0;
             return sum + quantity;
           }, 0);
         } else {
-          this.cartItemCount = 0; // Define como 0 se não houver itens
+          this.cartItemCount = 0;
         }
 
         console.log('Cart count updated:', this.cartItemCount);
