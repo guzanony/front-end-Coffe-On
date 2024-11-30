@@ -48,6 +48,7 @@
       type="text"
       label="CEP de Faturamento"
       placeHolder="XXXXX-XXX"
+      (blur)="checkCep($event, 'faturamento')"
     ></app-primary-input>
     <app-primary-input
       formControlName="logradouroFaturamento"
@@ -101,6 +102,7 @@
           type="text"
           label="CEP"
           placeHolder="XXXXX-XXX"
+          (blur)="checkCep($event, i)"
         ></app-primary-input>
         <app-primary-input
           formControlName="logradouro"

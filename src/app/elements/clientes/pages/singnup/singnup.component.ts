@@ -72,13 +72,20 @@ export class SignUpComponent {
     if (this.signUpForm.valid) {
       const signUpData = {
         ...this.signUpForm.value,
+        dataNascimento: this.formatDate(this.signUpForm.value.dataNascimento!),
         enderecosEntrega: this.enderecos.controls.map(group => group.value)
       };
+
       this._signUpService.signUp(signUpData).subscribe({
         next: () => this._toastService.success('Cadastro feito com sucesso'),
         error: () => this._toastService.error('Erro inesperado! Tente novamente mais tarde')
       });
     }
+  }
+
+  private formatDate(date: string): string {
+    const [day, month, year] = date.split('/');
+    return `${year}-${month}-${day}`;
   }
 
   public checkCep(event: any, type: 'faturamento' | number): void {

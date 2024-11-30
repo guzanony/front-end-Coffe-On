@@ -73,12 +73,29 @@ export class UserComponent implements OnInit {
   }
 
   private updateCartCount(): void {
-    this._cartService.getCart(this.cartId).subscribe((cart) => {
-      this.cartItemCount = cart.items.reduce((sum: any, item: any) => sum + item.quantity, 0);
-    }), () => {
-      console.error('Erro ao carregar o carrinho')
-    }
+    this._cartService.getCart(this.cartId).subscribe({
+      next: (cart) => {
+        console.log('Cart retrieved:', cart); // Log para depuração
+
+        if (cart.items && cart.items.length > 0) {
+          this.cartItemCount = cart.items.reduce((sum: number, item: any) => {
+            const quantity = item.quantity || 0; // Garante que quantity tenha um valor numérico
+            return sum + quantity;
+          }, 0);
+        } else {
+          this.cartItemCount = 0; // Define como 0 se não houver itens
+        }
+
+        console.log('Cart count updated:', this.cartItemCount);
+      },
+      error: (error) => {
+        console.error('Erro ao carregar o carrinho:', error);
+        this.cartItemCount = 0; // Define como 0 em caso de erro
+      }
+    });
   }
+
+
 
   public addToCart(product: Product): void {
     const cartItem = { productId: product.id, userName: this.getNameForCart(), quantity: 1 };
@@ -96,12 +113,14 @@ export class UserComponent implements OnInit {
 
   private initializeCart(): void {
     const cartId = sessionStorage.getItem('cartId');
+    console.log('Cart ID from session:', cartId);
     if (cartId) {
       this.cartId = parseInt(cartId, 10);
       this.updateCartCount();
     } else {
       this._cartService.createCart().subscribe({
         next: (cart) => {
+          console.log('New cart created:', cart);
           this.cartId = cart.id;
           sessionStorage.setItem('cartId', cart.id.toString());
           this.updateCartCount();
@@ -110,6 +129,7 @@ export class UserComponent implements OnInit {
       });
     }
   }
+
 
   public editProfile(): void {
     this._router.navigate(['/edit-user']);

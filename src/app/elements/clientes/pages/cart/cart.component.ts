@@ -89,7 +89,7 @@ export class CartComponent implements OnInit {
   }
 
   private isAuthenticated(): boolean {
-    return !!sessionStorage.getItem('auth-token');
+    return !!sessionStorage.getItem('nomeCompleto');
   }
 
   public updateQuantity(itemId: number, quantity: number): void {

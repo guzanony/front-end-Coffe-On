@@ -13,7 +13,7 @@ export class LoginService {
   private readonly _http = inject(HttpClient);
 
   public login(email: string | null | undefined, password: string | null | undefined): Observable<LoginResponse> {
-    return this._http.post<LoginResponse>(this.baseUrlApi + '/loginCliente', { email, password }).pipe(
+    return this._http.post<LoginResponse>('http://localhost:8080/auth/loginCliente', { email, password }).pipe(
       tap((value) => {
         sessionStorage.setItem('username', value.name);
         sessionStorage.setItem('nomeCompleto', value.nomeCompleto);

@@ -95,7 +95,7 @@ export class OrderSummaryComponent implements OnInit {
       next: (response) => {
         this._toastService.success(`Pedido ${response.numeroPedido} criado com sucesso. Total: R$ ${this.calculateTotal().toFixed(2)}`);
         sessionStorage.removeItem('cartId');
-        this._router.navigate(['/user']);
+        this._router.navigate(['/customer']);
       },
       error: (error) => {
         this._toastService.error('Erro ao criar pedido. Tente novamente mais tarde.');
