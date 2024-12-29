@@ -4,9 +4,3 @@ export type LoginResponse = {
   nomeCompleto: string;
   clienteId: number;
 }
-
-export type LoginUserResponse = {
-  username: string;
-  password: string;
-  token: string;
-}
