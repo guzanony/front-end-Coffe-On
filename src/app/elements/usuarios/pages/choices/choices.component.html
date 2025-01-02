@@ -1,1 +1,10 @@
-<p>choices works!</p>
+<main *ngFor="let list of tagertValue"  class="main d-flex justify-content-around flex-wrap">
+  <div class="card shadow p-5" style="width: 18rem; height: 22rem">
+    <img src="assets/img/Users.svg" class="card-img-top" alt="usersimg" />
+    <div class="card-body mt-5">
+      <button class="btn col-12">
+        {{ list.targetValue }}
+      </button>
+    </div>
+  </div>
+</main>
